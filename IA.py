@@ -23,9 +23,17 @@ class Gubru():
 
     def doitChangerEtoileMere():
         for etoile in self.etoilePossedee:
-            if etoile == self.etoileMere: # Donc qu'on possede toujours la meme etoile mere
+            # Si etoileMere est dans la liste d'etoile.
+            # On veut pas changer.
+            if etoile == self.etoileMere: 
                 return False
         return True # Faut changer d'etoile mere.
+
+    def changerEtoileMere():
+        if doitChangerEtoileMere():
+            # J'ai envie de chercher celle qui est le plus securise
+            # Mais pour l'instant, je fais juste prendre la premiere de la liste
+            self.etoileMere = self.etoilePossedee[0]
 
 
 class Czin(NPC):
