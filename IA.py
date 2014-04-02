@@ -21,9 +21,8 @@ class Gubru():
 
         # On en fait des variables?
         # En fait je crois que j'ai pas compris cette partie.
-        
-	self.forceAttaque
-        self.forceAttaqueBasique
+	self.nbVaisseauParAttaque = 5        
+        self.forceAttaqueBasique = 10
         self.puissanceAttaque
         
     def joueSonTour():
@@ -32,7 +31,7 @@ class Gubru():
         changerEtoileMere()
 
         # On calcules les forces d'attaque.
-
+        self.puissaceAttaque = calculPuissanceAttaque()
         # On trouve une planete a attaquer
 
         # On l'attaque
@@ -53,6 +52,14 @@ class Gubru():
 		# En fait la doc dit de prendre la premiere de la liste.
             self.etoileMere = self.etoilePossedee[0]
 
+    def calculPuissanceAttaque():
+        pSelonTemps = self.modele.temps * self.nbVaisseauParAttaque + self.forceAttaqueBasique
+        pBasique =  self.forceAttaqueBasique * 2
+        
+        if pSelonTemps > pBasique:
+            return pSelonTemps
+        else:
+            return pBasique
 
 class Czin(NPC):
     def __init__(modele):
