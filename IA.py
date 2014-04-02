@@ -16,11 +16,28 @@ class NPC():
 class Gubru():
     def __init__(modele):
         self.modele = modele
-        self.etoileMere = self.etoilePossedee[0] # Parce que la premiere est de facto l'etoile mere.
+        # Parce que la premiere est de facto l'etoile mere.
+        self.etoileMere = self.etoilePossedee[0]
 
+        # On en fait des variables?
+        # En fait je crois que j'ai pas compris cette partie.
+        
+	self.forceAttaque
+        self.forceAttaqueBasique
+        self.puissanceAttaque
+        
     def joueSonTour():
-        pass
+        # En premier, on change (ou pas) l'etoile mere.
+        # Le test est dans la fonction.
+        changerEtoileMere()
 
+        # On calcules les forces d'attaque.
+
+        # On trouve une planete a attaquer
+
+        # On l'attaque
+
+    
     def doitChangerEtoileMere():
         for etoile in self.etoilePossedee:
             # Si etoileMere est dans la liste d'etoile.
@@ -33,6 +50,7 @@ class Gubru():
         if doitChangerEtoileMere():
             # J'ai envie de chercher celle qui est le plus securise
             # Mais pour l'instant, je fais juste prendre la premiere de la liste
+		# En fait la doc dit de prendre la premiere de la liste.
             self.etoileMere = self.etoilePossedee[0]
 
 
