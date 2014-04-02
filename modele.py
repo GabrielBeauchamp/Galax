@@ -88,7 +88,7 @@ class Modele():
         self.planeteMaxAtteint=0
         self.positionDansListe=0
         
-        while (planeteMaxAtteint<=self.modele.nbEtoile): 
+        while planeteMaxAtteint<=self.modele.nbEtoile:
         
             self.posX=random.randint(0,self.xMax)
             self.posY=random.randint(0,self.yMax)
@@ -99,19 +99,14 @@ class Modele():
                 self.planeteMaxAtteint+1
                 self.positionDansListe+1
 
-     def etoileNonPrésente (x,y):                  #à verifier la source de posY
+     def etoileNonPresente (self,x,y):                  #a verifier la source de posY
         for Etoile in self.etoile:
             if self.posX==x and self.posY==y : 
                 return False 
             else: 
                 return True 
-        
-            
-                                           
-        
-        
     
-     def verifierPartieFinie(self):                      #Ici je présuppose qu'il y a 3 valeurs  pour les propriétaires des planète 0-humains 1-Gubru 2-Czin
+     def verifierPartieFinie(self):                      #Ici je presuppose qu'il y a 3 valeurs  pour les proprietaires des planete 0-humains 1-Gubru 2-Czin
         self.memePriorio=memeProprio;
         for i in range (self.nbEtoiles):
             for i in self.etoiles[i]: 
