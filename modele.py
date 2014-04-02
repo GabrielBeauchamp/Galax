@@ -138,4 +138,3 @@ class Controleur():
 if __name__=="__main__":       
     controleur=Controleur()
 
->>>>>>> 01d106fbe14dce5803180af7f75191b3a39a316b
