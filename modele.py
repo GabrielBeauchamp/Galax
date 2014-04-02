@@ -79,9 +79,6 @@ class Modele():
             elif:
                   tempsVoyage = 1+ (math.trunc ( ( math.pow (abs(xArrivee-xDepart,2)) + math.pow(abs(yArrivee-yDepart,2))) -2) / 3)
                   
-              
-            
-        
     def commencerPartie(self):
         self.planeteMaxAtteint=0                   #pas sur syntaxe
         self.xMax=self.parent.AireJeu.xMax          #pas sur syntaxe
@@ -108,11 +105,6 @@ class Modele():
             return false
         else:
             return true
-        
-            
-                                           
-        
-        
 
     def verifierPartieFinie(self):                      #Ici je présuppose qu'il y a 3 valeurs  pour les propriétaires des planète 0-humains 1-Gubru 2-Czin
         self.memePriorio=memeProprio;
@@ -146,21 +138,4 @@ class Controleur():
 if __name__=="__main__":       
     controleur=Controleur()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+>>>>>>> 01d106fbe14dce5803180af7f75191b3a39a316b
