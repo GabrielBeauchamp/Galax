@@ -1,7 +1,6 @@
 import random
 import math
 
-
 class Etoile():
     def __init__(self,parent,x,y,nbManu,nbShip,NbNivInt,numeroEtoile,proprio):
         self.parent=parent
@@ -99,14 +98,14 @@ class Modele():
                 self.planeteMaxAtteint+1
                 self.positionDansListe+1
 
-    def etoileNonPrésente (x,y):                  #à verifier la source de posY
+    def etoileNonPresente (x,y):                  #a verifier la source de posY
         for Etoile in self.etoile:
             if self.posX==x and self.posY==y:
             return false
         else:
             return true
 
-    def verifierPartieFinie(self):                      #Ici je présuppose qu'il y a 3 valeurs  pour les propriétaires des planète 0-humains 1-Gubru 2-Czin
+    def verifierPartieFinie(self):                      #Ici je presuppose qu'il y a 3 valeurs  pour les proprietaires des planete 0-humains 1-Gubru 2-Czin
         self.memePriorio=memeProprio;
         for i in range (self.nbEtoiles):
             for self.etoiles[i]:
@@ -137,4 +136,3 @@ class Controleur():
    
 if __name__=="__main__":       
     controleur=Controleur()
-
