@@ -1,20 +1,20 @@
 class NPC():
-    def __init__(parent):
+    def __init__(self, parent):
         self.parent = parent     # Ca va etre Modele
         self.etoilePossedee = [] # Liste d'etoile
         self.nbVaisseau = 100   # Le nombre total
         self.nbManifacture = 10 # Le nombre total
 
-    def joueSonTour():
+    def joueSonTour(self):
         pass
 
-    def nbTotalVaisseaux():
+    def nbTotalVaisseaux(self):
 	total = 0
         for etoile in self.etoilePossedee:
             total += etoile.nbVaisseau
 
 class Gubru():
-    def __init__(modele):
+    def __init__(self, modele):
         self.modele = modele
         # Parce que la premiere est de facto l'etoile mere.
         self.etoileMere = self.etoilePossedee[0]
@@ -25,7 +25,7 @@ class Gubru():
         self.forceAttaqueBasique = 10
         self.puissanceAttaque
         
-    def joueSonTour():
+    def joueSonTour(self):
         # En premier, on change (ou pas) l'etoile mere.
         # Le test est dans la fonction.
         changerEtoileMere()
@@ -37,7 +37,7 @@ class Gubru():
         # On l'attaque
 
     
-    def doitChangerEtoileMere():
+    def doitChangerEtoileMere(self):
         for etoile in self.etoilePossedee:
             # Si etoileMere est dans la liste d'etoile.
             # On veut pas changer.
@@ -45,14 +45,14 @@ class Gubru():
                 return False
         return True # Faut changer d'etoile mere.
 
-    def changerEtoileMere():
+    def changerEtoileMere(self):
         if doitChangerEtoileMere():
             # J'ai envie de chercher celle qui est le plus securise
             # Mais pour l'instant, je fais juste prendre la premiere de la liste
 		# En fait la doc dit de prendre la premiere de la liste.
             self.etoileMere = self.etoilePossedee[0]
 
-    def calculPuissanceAttaque():
+    def calculPuissanceAttaque(self):
         pSelonTemps = self.modele.temps * self.nbVaisseauParAttaque + self.forceAttaqueBasique
         pBasique =  self.forceAttaqueBasique * 2
         
@@ -62,9 +62,9 @@ class Gubru():
             return pBasique
 
 class Czin(NPC):
-    def __init__(modele):
+    def __init__(self, modele):
         self.modele = modele
 
-    def joueSonTour():
+    def joueSonTour(self):
         pass
         
