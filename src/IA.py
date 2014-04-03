@@ -9,7 +9,7 @@ class NPC():
         pass
 
     def nbTotalVaisseaux(self):
-	total = 0
+        total = 0
         for etoile in self.etoilePossedee:
             total += etoile.nbVaisseau
 
@@ -21,7 +21,7 @@ class Gubru():
 
         # On en fait des variables?
         # En fait je crois que j'ai pas compris cette partie.
-	self.nbVaisseauParAttaque = 5        
+        self.nbVaisseauParAttaque = 5
         self.forceAttaqueBasique = 10
         self.puissanceAttaque
         
@@ -60,6 +60,11 @@ class Gubru():
             return pSelonTemps
         else:
             return pBasique
+
+    def formationFlotte(self):
+        if self.etoileMere.nbShip > self.puissaceAttaque + self.forceAttaqueBasique:
+            # J'ai aucune idee comment faire ca.
+            pass
 
 class Czin(NPC):
     def __init__(self, modele):
