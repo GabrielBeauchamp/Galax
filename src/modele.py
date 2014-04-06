@@ -2,26 +2,25 @@ import random
 import math
 
 class Etoile():
-    def __init__(self, parent, x, y, nbManu, nbShip, NbNivInt, numeroEtoile, proprio): # TO LOOK On doit vraiment faire comme ca?
+    def __init__(self, parent, x, y, nbManu, nbShip, nbNivInt, numeroEtoile, proprio): 
         self.parent=parent
         self.x=x
         self.y=y
         self.nbManu=nbManu
         self.nbShip=nbShip
-        self.NbInt=nbNivInt
+        self.NbNivInt=nbNivInt
         self.numeroEtoile=numeroEtoile
         self.proprio = proprio;
         self.vaisseaux=[]
         self.racePresentes=[]
 
 class Vaisseau():
-    def __init__(self, parent, depart):
-        self.parent=parent
-        self.depart=depart
-        self.arrive=null
-        self.momentDepart=null
-        self.momentArrivee=null
-        self.noFlotte
+    def __init__(self):
+        self.depart=None
+        self.arrive=None
+        self.momentDepart=None
+        self.momentArrivee=None
+        self.noFlotte=None
 
 class Flotte():
     def __init__(self, parent, noIdent,nbShip,prorio):
@@ -36,76 +35,145 @@ class AireJeu():
         self.yMax=yMax
 
 class Modele():
-    def __init__(self, parent, xMax, yMax, nbEtoile): # TO LOOK xMax, yMax, et nbEtoile ont besoin d'etre en parametre?
+    def __init__(self, parent, xMax, yMax, nbEtoile): 
         self.nbEtoiles=nbEtoile
         self.etoiles=[]
         self.tourFini=False
         self.partieFinie=False
         self.posX=0
-        self.poxY=0
+        self.posY=0
         self.parent=parent
         self.aireDeJeu=AireJeu(xMax, yMax)
         self.temps=0
         self.etoilesEnConflit=[]
+        self.vaisseauxDeplacement=[]
         
     def verifierTourFini(self, temps):
         if self.temps % 10 == 0:
-            return true
+            return True
         else:
-            return false
+            return False
         
     def commencerPartie(self):
-        self.planeteMaxAtteint = 0 #pas sur syntaxe
-        self.xMax = self.parent.AireJeu.xMax #pas sur syntaxe
-        self.yMax = self.parent.AireJeu.yMax #pas sur syntaxe
+        self.planeteMaxAtteint = 0 
+        self.xMax = self.aireDeJeu.xMax 
+        self.yMax = self.aireDeJeu.yMax 
         self.PosX = 0;
         self.posY = 0
         self.planeteMaxAtteint = 0
         self.positionDansListe = 0
         
-        while planeteMaxAtteint <= self.modele.nbEtoile:
-        
+        while self.planeteMaxAtteint < self.nbEtoiles:
             self.posX=random.randint(0, self.xMax)
             self.posY=random.randint(0, self.yMax)
           
-            if etoileNonPresente (self.posX, self.posy):
-                x = Etoile(self.poxX, self.posY, 0, 0, 0, planeteMaxAtteint, null)
+            if self.etoileNonPresente (self.posX, self.posY):
+                x = Etoile(self,self.posX, self.posY, random.randint(0,6), 0, 0, self.planeteMaxAtteint, None)
+                for i in range (x.nbManu):
+                    x.vaisseaux.append(Vaisseau())
+                    
                 self.etoiles.append(x)
                 self.planeteMaxAtteint += 1
                 self.positionDansListe += 1
+        i=0
+        while i<4:
+            x = random.randint(0, 39)
+            if self.etoiles[x].proprio == None:
+                self.etoiles[x].proprio = 4
+                i+=1
+        i=0
+
+        while i<1:
+            x = random.randint(0, 39)
+            if self.etoiles[x].proprio == None:
+                self.etoiles[x].proprio = 0
+                self.etoiles[x].nbManu = 10
+                self.etoiles[x].nbShip = 100
+                i=+1
+        i=0
+        
+        while i<1:
+            x = random.randint(0, 39)
+            if self.etoiles[x].proprio == None:
+                self.etoiles[x].proprio = 1
+                self.etoiles[x].nbManu = 10
+                self.etoiles[x].nbShip = 100
+                i=+1
+        i=0
+        
+        while i<1:
+            x = random.randint(0, 39)
+            if self.etoiles[x].proprio == None:
+                self.etoiles[x].proprio = 2
+                self.etoiles[x].nbManu = 10
+                self.etoiles[x].nbShip = 100
+                i=+1
+                
+        print (self.planeteMaxAtteint)
+        self.verifierTableau()
 
     def etoileNonPresente (self, x, y): 
         for Etoile in self.etoiles:
-            if Etoile.posX == x and Etoile.posY == y :
+            if Etoile.x == x and Etoile.y == y :
                 return False
-            else:
-                return True
+        return True
+
+    def verifierTableau (self):  #fonction de test
+        self.numero=0
+        for i in range(self.aireDeJeu.yMax):
+            for j in range(self.aireDeJeu.xMax):
+                self.isEtoile =False
+                for k in self.etoiles:
+                    if k.y==i and k.x==j:
+                        self.isEtoile = True
+                        if k.proprio == 4:
+                            print ("O",end='')
+                        elif k.proprio == 0:
+                            print ("H",end='')
+                        elif k.proprio == 1:
+                            print ("G",end='')
+                        elif k.proprio == 2:
+                            print ("C",end='')
+                        else:
+                            print ("X",end='')
+                        k.numeroEtoile=self.numero+1
+                        
+                if not self.isEtoile:
+                    print("-",end='')
+            print ('\n')
+        print(self.etoiles[0].nbManu)
+        print(self.etoiles[0].vaisseaux)
+        
+         
     
-    def verifierPartieFinie(self): #Ici je presuppose qu'il y a 3 valeurs pour les proprietaires des planete 0-humains 1-Gubru 2-Czin 4-NPC mais on les utilise pas ici
-        self.memePriorio = memeProprio; # TO LOOK Si tu fais ca, faut que ce soit clairement ecrit quelque part. Pas juste en commentaire.
-        for i in range (self.nbEtoiles): # TO LOOK Oh et le code me semble.. etrange.
-            for i in self.etoiles[i]:
-                if proprio != 0 :
-                    memeProprio = False
-                else:
-                    memeProprio = True
+    def verifierPartieFinie(self):
+        proprio0=True
+        proprio1=True
+        proprio2=True
+    
         for i in self.etoiles[i]:
-                if proprio != 1 :
-                    memeProprio = False
-                else :
-                    self.memeProprio = True
-        for i in self.etoiles[i]:
-                if proprio != 2:
-                    memeProprio = False
-                else :
-                    memeProprio = True
-        return memeProprio
+            if i.proprio != 0 :
+                proprio0 = False
+                
+            if i.proprio != 1 :
+                proprio1 = False
+                
+       
+            if i.proprio != 2:
+                proprio2 = False
+                
+        if proprio0 or proprio1 or proprio2:
+            return True
+        else:
+            return False
 
     def incrementerVaisseau(self):
-        if self.tourFini == True:
-            for i in self.etoiles:
-                for j in self.etoiles.nbManu:
-                    self.etoiles.nbShip += 1
+        for i in self.etoiles:
+            i.nbShip+=i.nbManu
+            for j in range (i.nbManu):
+                i.vaisseaux.append(Vaisseaux ())
+                
+
     
     def verifierCombat(self):
         for Etoile in self.etoiles:
@@ -156,15 +224,21 @@ class Modele():
 class Controleur():
     def __init__(self):
         self.modele = Modele(self, 10, 10, 40)
+        self.modele.commencerPartie()
+        #note ajouterTemps et VerifierTourFini et #verifier partiefini est ici
+
+
+
+
         #cree le modele
         #tour du joueur
         #tour des Gubru
         #tour des Czin
-        #incrementation de temps 0.1
-        #verification batailles
-        #batailles
-        #incrementation 0.1 encore
-        #incrementation -batailles etc
+            #incrementation de temps 0.1
+            #verification batailles
+            #batailles
+            #incrementation 0.1 encore
+            #incrementation -batailles etc
         #verification si un tour est passé
         #verification si la partie est finie                       
         #si tour passé,si partie non finie incrémentation des vaisseaus sur chaque étoile conquise
@@ -173,4 +247,5 @@ class Controleur():
         #GAME OVER merci d'avoir joué à Galax
                                
 if __name__ == "__main__":
+    
     controleur = Controleur()
