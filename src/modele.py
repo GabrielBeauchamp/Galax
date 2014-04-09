@@ -2,32 +2,32 @@ import random
 import math
 
 class Etoile():
-    def __init__(self, parent, x, y, nbManu, nbShip, nbNivInt, numeroEtoile, proprio): 
-        self.parent=parent
-        self.x=x
-        self.y=y
-        self.nbManu=nbManu
-        self.nbShip=nbShip
-        self.NbNivInt=nbNivInt
-        self.numeroEtoile=numeroEtoile
-        self.proprio = proprio;
-        self.vaisseaux=[]
-        self.racePresentes=[]
+    def __init__(self, parent, x, y, numeroEtoile, proprio):
+        self.parent = parent
+        self.x = x
+        self.y = y
+        self.nbShip = 0
+        self.NbNivInt = 0
+        self.numeroEtoile = numeroEtoile
+        self.proprio =  proprio
+        self.racePresentes = []
+        self.setNombreManifacture()
 
-class Vaisseau():
-    def __init__(self):
-        self.depart=None
-        self.arrive=None
-        self.momentDepart=None
-        self.momentArrivee=None
-        self.noFlotte=None
+    def setNombreManifacture(self):
+        self.nbManu = random.randint(0, 6)
 
 class Flotte():
-    def __init__(self, parent, noIdent,nbShip,prorio):
-        self.parent=parent
-        self.noIdent=noIdent
-        self.nbShip=NbShip
-        self.prorio=prorio
+    def __init__(self, parent, noIdent, nbShip, prorio):
+        self.parent = parent
+        self.noIdent = noIdent
+        self.nbShip = nbShip
+        self.prorio = prorio
+
+        self.depart = None
+        self.arrive = None
+        self.momentDepart = None
+        self.momentArrivee = None
+
 
 class AireJeu():
     def __init__(self, xMax, yMax):
@@ -36,17 +36,17 @@ class AireJeu():
 
 class Modele():
     def __init__(self, parent, xMax, yMax, nbEtoile): 
-        self.nbEtoiles=nbEtoile
-        self.etoiles=[]
-        self.tourFini=False
-        self.partieFinie=False
-        self.posX=0
-        self.posY=0
-        self.parent=parent
-        self.aireDeJeu=AireJeu(xMax, yMax)
-        self.temps=0
-        self.etoilesEnConflit=[]
-        self.vaisseauxDeplacement=[]
+        self.nbEtoiles = nbEtoile
+        self.etoiles = []
+        self.tourFini = False
+        self.partieFinie = False
+        self.posX = 0
+        self.posY = 0
+        self.parent = parent
+        self.aireDeJeu = AireJeu(xMax, yMax)
+        self.temps = 0
+        self.etoilesEnConflit = []
+        self.vaisseauxDeplacement = []
         
     def verifierTourFini(self, temps):
         if self.temps % 10 == 0:
@@ -68,9 +68,9 @@ class Modele():
             self.posY=random.randint(0, self.yMax)
           
             if self.etoileNonPresente (self.posX, self.posY):
-                x = Etoile(self,self.posX, self.posY, random.randint(0,6), 0, 0, self.planeteMaxAtteint, None)
+                x = Etoile(self,self.posX, self.posY, self.planeteMaxAtteint, None)
                 for i in range (x.nbManu):
-                    x.vaisseaux.append(Vaisseau())
+                    x.nbShip += 1
                     
                 self.etoiles.append(x)
                 self.planeteMaxAtteint += 1
@@ -108,7 +108,10 @@ class Modele():
                 self.etoiles[x].nbManu = 10
                 self.etoiles[x].nbShip = 100
                 i=+1
-                
+        for e in self.etoiles:
+            if e.proprio != 1 or e.proprio != 2 or e.proprio != 3:
+                e.nbManu+=random.randint(0,6)
+        
         print (self.planeteMaxAtteint)
         self.verifierTableau()
 
@@ -142,7 +145,6 @@ class Modele():
                     print("-",end='')
             print ('\n')
         print(self.etoiles[0].nbManu)
-        print(self.etoiles[0].vaisseaux)
         
          
     
