@@ -7,7 +7,7 @@ class Etoile():
         self.x = x
         self.y = y
         self.nbShip = 0
-        self.NbNivInt = 0
+        self.nivInt = 0
         self.numeroEtoile = numeroEtoile
         self.proprio =  proprio
         self.racePresentes = []
@@ -17,12 +17,11 @@ class Etoile():
         self.nbManu = random.randint(0, 6)
 
 class Flotte():
-    def __init__(self, parent, noIdent, nbShip, prorio):
+    def __init__(self, nbShip, prorio):
         self.parent = parent
         self.noIdent = noIdent
         self.nbShip = nbShip
         self.prorio = prorio
-
         self.depart = None
         self.arrive = None
         self.momentDepart = None
@@ -47,6 +46,7 @@ class Modele():
         self.temps = 0
         self.etoilesEnConflit = []
         self.vaisseauxDeplacement = []
+        self.flotte = []
         
     def verifierTourFini(self, temps):
         if self.temps % 10 == 0:
@@ -61,35 +61,30 @@ class Modele():
         self.PosX = 0;
         self.posY = 0
         self.planeteMaxAtteint = 0
-        self.positionDansListe = 0
+    
         
         while self.planeteMaxAtteint < self.nbEtoiles:
-            self.posX=random.randint(0, self.xMax)
-            self.posY=random.randint(0, self.yMax)
+            self.posX=random.randint(0, self.xMax-1)
+            self.posY=random.randint(0, self.yMax-1)
           
             if self.etoileNonPresente (self.posX, self.posY):
                 x = Etoile(self,self.posX, self.posY, self.planeteMaxAtteint, None)
                 for i in range (x.nbManu):
-                    x.nbShip += 1
+                     x.nbShip += 1
                     
                 self.etoiles.append(x)
                 self.planeteMaxAtteint += 1
-                self.positionDansListe += 1
-        i=0
-        while i<4:
-            x = random.randint(0, 39)
-            if self.etoiles[x].proprio == None:
-                self.etoiles[x].proprio = 4
-                i+=1
-        i=0
+    
+      
+        
 
-        while i<1:
-            x = random.randint(0, 39)
-            if self.etoiles[x].proprio == None:
-                self.etoiles[x].proprio = 0
-                self.etoiles[x].nbManu = 10
-                self.etoiles[x].nbShip = 100
-                i=+1
+        
+        x = random.randint(0, 39)
+        
+        self.etoiles[x].proprio = 0
+        self.etoiles[x].nbManu = 10
+        self.etoiles[x].nbShip = 100
+                    
         i=0
         
         while i<1:
@@ -108,9 +103,7 @@ class Modele():
                 self.etoiles[x].nbManu = 10
                 self.etoiles[x].nbShip = 100
                 i=+1
-        for e in self.etoiles:
-            if e.proprio != 1 or e.proprio != 2 or e.proprio != 3:
-                e.nbManu+=random.randint(0,6)
+        
         
         print (self.planeteMaxAtteint)
         self.verifierTableau()
@@ -129,9 +122,7 @@ class Modele():
                 for k in self.etoiles:
                     if k.y==i and k.x==j:
                         self.isEtoile = True
-                        if k.proprio == 4:
-                            print ("O",end='')
-                        elif k.proprio == 0:
+                        if k.proprio == 0:
                             print ("H",end='')
                         elif k.proprio == 1:
                             print ("G",end='')
@@ -144,6 +135,8 @@ class Modele():
                 if not self.isEtoile:
                     print("-",end='')
             print ('\n')
+        print (self.etoiles[0].x)
+        print (self.etoiles[0].y)
         print(self.etoiles[0].nbManu)
         
          
@@ -222,16 +215,40 @@ class Modele():
             elif (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) > 2: 
                   tempsVoyage = 1+ (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))) -2) / 3)
 
+    def joueurProprio (self, tag):
+        tag[6:]
+
+        if self.etoiles[tab].proprio == 0:
+            return True
+        else:
+            return False
+
+    def niveauIntel (self, tag):
+        tag[6:]
+        return self.etoiles[tag].nivInt
+
+    def creerFlotte (self,tag,nbShip,proprio):                ##les AI utilisent cette fonction pour creer leur flottes
+        tag[6:]
+        if self.etoiles[tag].nbShip >= nbShip:
+            self.flotte.append(Flotte(nbShip,proprio))
+            self.etoiles[tag].nbShip = self.etoiles[tag].nbShip - nbShip
+                
+            return len(self.flotte)-1
+        else:
+           return False
+        
+    def donnerDestFlotte (tagFlotte,tagEtoile):
+        tagFlotte[6:]
+        tagEtoile[6:]
+        self.flotte[tagFlotte].arrivee = self.etoiles[tagEtoile]
+
+            
 
 class Controleur():
     def __init__(self):
         self.modele = Modele(self, 10, 10, 40)
         self.modele.commencerPartie()
         #note ajouterTemps et VerifierTourFini et #verifier partiefini est ici
-
-
-
-
         #cree le modele
         #tour du joueur
         #tour des Gubru
@@ -247,6 +264,8 @@ class Controleur():
         #Re-tour du joueur
         #on recommence jusqu'à la fin de la partie
         #GAME OVER merci d'avoir joué à Galax
+        #note pour drago : mettre des tags les icone etoile pour que ca retourne le tag : "etoile+nbEtoile"
+        #note tester tout le transtypage de l'operation tag
                                
 if __name__ == "__main__":
     
