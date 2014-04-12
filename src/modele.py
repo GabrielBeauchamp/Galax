@@ -17,12 +17,12 @@ class Etoile():
         self.nbManu = random.randint(0, 6)
 
 class Flotte():
-    def __init__(self, nbShip, prorio):
+    def __init__(self, nbShip, prorio, depart):
         self.parent = parent
         self.noIdent = noIdent
         self.nbShip = nbShip
         self.prorio = prorio
-        self.depart = None
+        self.depart = depart
         self.arrive = None
         self.momentDepart = None
         self.momentArrivee = None

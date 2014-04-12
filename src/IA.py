@@ -23,7 +23,8 @@ class Gubru():
         # En fait je crois que j'ai pas compris cette partie.
         self.nbVaisseauParAttaque = 5
         self.forceAttaqueBasique = 10
-        self.puissanceAttaque
+        self.puissanceAttaque   # ou force_attaque
+        self.flottes = []
         
     def joueSonTour(self):
         # En premier, on change (ou pas) l'etoile mere.
@@ -49,7 +50,7 @@ class Gubru():
         if doitChangerEtoileMere():
             # J'ai envie de chercher celle qui est le plus securise
             # Mais pour l'instant, je fais juste prendre la premiere de la liste
-		# En fait la doc dit de prendre la premiere de la liste.
+            # En fait la doc dit de prendre la premiere de la liste.
             self.etoileMere = self.etoilePossedee[0]
 
     def calculPuissanceAttaque(self):
@@ -61,10 +62,11 @@ class Gubru():
         else:
             return pBasique
 
-    def formationFlotte(self):
-        if self.etoileMere.nbShip > self.puissaceAttaque + self.forceAttaqueBasique:
-            # J'ai aucune idee comment faire ca.
-            pass
+    def formationFlottes(self):
+        while self.etoileMere.nbShip > self.puissaceAttaque + self.forceAttaqueBasique:
+            self.flottes.append(Flotte(self.puissaceAttaque, "Gubru"))
+            self.etoileMere.nbShip -= self.puissaceAttaque # J'aime pas du tout.
+
 
 class Czin(NPC):
     def __init__(self, modele):
