@@ -1,6 +1,11 @@
 import random
 import math
 
+class Race():
+    humain = 0
+    czin = 1
+    gubru = 2
+
 class Etoile():
     def __init__(self, parent, x, y, numeroEtoile, proprio):
         self.parent = parent
