@@ -19,8 +19,6 @@ class Gubru():
         # Parce que la premiere est de facto l'etoile mere.
         self.etoileMere = self.etoilePossedee[0]
 
-        # On en fait des variables?
-        # En fait je crois que j'ai pas compris cette partie.
         self.nbVaisseauParAttaque = 5
         self.forceAttaqueBasique = 10
         self.puissanceAttaque   # ou force_attaque
@@ -48,7 +46,7 @@ class Gubru():
 
     def changerEtoileMere(self):
         if doitChangerEtoileMere():
-            # J'ai envie de chercher celle qui est le plus securise
+            # J'ai envie de chercher celle qui est le plus securisee
             # Mais pour l'instant, je fais juste prendre la premiere de la liste
             # En fait la doc dit de prendre la premiere de la liste.
             self.etoileMere = self.etoilePossedee[0]
