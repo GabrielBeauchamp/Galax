@@ -49,6 +49,26 @@ class VueGraphique(Frame):
 
 		self.centerWindow(width, height, self.fenetreMenu)
 
+	# Définition de fonctionnement des boutons pour le jeu
+	def BoutonLaunch(self):
+		print("The button Launch was pressed!")
+
+	def BoutonGo(self):
+		print("The buttonm Go was pressed!")
+
+	def BoutonMoin(self):
+		print("-1 Ship")
+
+	def BoutonPlus(self):
+		print("+1 Ship")
+
+	# Gestion de la sourir
+	def MouseManeger(self, event):
+		X= int(event.x/32)
+		Y= int(event.y/32)
+		print("Position du Clic ->", X,',', Y)
+
+
 	def AfficherJeuUI(self):
 		self.fenetreJeu = Tk()
 		self.fenetreJeu.title("Galax - Jeu")
@@ -143,26 +163,30 @@ class VueGraphique(Frame):
 		panelBoutons = Frame(self.fenetreJeu, width= 970, height= 70, background= "darkgray")
 		panelBoutons.grid(row= 1, columnspan= 1, sticky= N)
 
-		boutonLaunch = Button(panelBoutons, text= "Launch", bg="black", fg= "white", width= 26, height= 3)
+		boutonLaunch = Button(panelBoutons, text= "Launch", bg="black", fg= "white", width= 26, height= 3, command= self.BoutonLaunch)
 		boutonLaunch.grid(row= 0, column= 0, padx= 5, pady= 7)
 
 		panelBoutonSpiner = Frame(panelBoutons, height= 56)
 		panelBoutonSpiner.grid(row= 0, column= 1, padx= 172, pady= 7)
 
-		boutonLaunch = Button(panelBoutonSpiner, text= "-", bg="black", fg= "white", width= 8, height= 3)
-		boutonLaunch.grid(row= 0, column= 0)
+		boutonMoin = Button(panelBoutonSpiner, text= "-", bg="black", fg= "white", width= 8, height= 3, command= self.BoutonMoin)
+		boutonMoin.grid(row= 0, column= 0)
 
 		labelNbVesseaux = Label(panelBoutonSpiner, text="X", width= 12)
 		labelNbVesseaux.grid(row=0, column=1)
 
-		boutonLaunch = Button(panelBoutonSpiner, text= "+", bg="black", fg= "white", width= 8, height= 3)
-		boutonLaunch.grid(row= 0, column= 2)
+		boutonPlus = Button(panelBoutonSpiner, text= "+", bg="black", fg= "white", width= 8, height= 3, command= self.BoutonPlus)
+		boutonPlus.grid(row= 0, column= 2)
 
-		boutonGo = Button(panelBoutons, text= "Go", bg="black", fg= "white", width= 26, height= 3)
+		boutonGo = Button(panelBoutons, text= "Go", bg="black", fg= "white", width= 26, height= 3, command= self.BoutonGo)
 		boutonGo.grid(row= 0, column= 3, padx= 5, pady= 7)
 		##################################################################################################
 
+		self.canevas.bind('<ButtonRelease-1>', self.MouseManeger)
+
 		self.centerWindow(width, height, self.fenetreJeu)
+
+
 
 #Main
 if __name__ == '__main__':
