@@ -74,7 +74,7 @@ class VueGraphique(Frame):
 		panelNbPlanetPlayer = Frame(panelInfo, width= 220, height= 200, bg= "gray", relief= "sunken", bd= 3)
 		panelNbPlanetPlayer.grid(row= 0, padx = 5, pady= 15)
 
-		labelNbPlanetPlayer = Label(panelNbPlanetPlayer, text= "--- Nombre de planets par joueur ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
+		labelNbPlanetPlayer = Label(panelNbPlanetPlayer, text= "--- Nomber of planets ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
 		labelNbPlanetPlayer.grid(row= 0, column= 0, columnspan= 2)
 
 		imgPlanetHumain = PhotoImage(file="imageSource\planetHumain.gif")
@@ -104,7 +104,7 @@ class VueGraphique(Frame):
 		panelAttaque = Frame(panelInfo, width= 220, height= 170, bg= "gray", relief= "sunken", bd= 3)
 		panelAttaque.grid(row= 1, padx = 5, pady= 15)
 
-		labelAttaque = Label(panelAttaque, text= "--- Attaque ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
+		labelAttaque = Label(panelAttaque, text= "--- Attack ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
 		labelAttaque.grid(row= 0, column= 0, columnspan= 2)
 
 		labelFrom = Label(panelAttaque, text= "From : ", bg= "gray")
@@ -122,7 +122,7 @@ class VueGraphique(Frame):
 		panelFlotte = Frame(panelInfo, width= 220, height= 200, bg= "gray", relief= "sunken", bd= 3)
 		panelFlotte.grid(row= 2, padx = 5, pady= 15)
 
-		labelFlotte = Label(panelFlotte, text= "--- Flottes ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
+		labelFlotte = Label(panelFlotte, text= "--- Flect ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
 		labelFlotte.grid(row= 0)
 
 		labelPort = Label(panelFlotte, text= "Port : ", bg= "gray")
@@ -131,7 +131,7 @@ class VueGraphique(Frame):
 		labelTransit = Label(panelFlotte, text= "Transit : ", bg= "gray")
 		labelTransit.grid(row= 2, sticky= W, padx= 10, pady= 8)
 
-		labelAnnee = Label(panelInfo, text= "X Année", width= 23, height= 2, font=(14),bg= "black", fg= "white", relief= "raised", bd= 3)
+		labelAnnee = Label(panelInfo, text= "Year X", width= 23, height= 2, font=(14),bg= "black", fg= "white", relief= "raised", bd= 3)
 		labelAnnee.grid(row= 3, padx = 5, pady= 15)
 
 		panelStatus = Frame(panelInfo, width= 220, height= 134, bg= "black", relief= "sunken", bd= 3)
