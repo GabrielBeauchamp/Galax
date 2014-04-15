@@ -61,6 +61,9 @@ class VueGraphique(Frame):
 
 		self.canevas = Canvas(panelCanevas, width= 960, height=640, bd=-2, bg= "black")
 		self.canevas.grid(padx= 5 ,pady= 5)
+
+		self.imgJeu = PhotoImage(file= "imageSource\playScene.gif")
+		self.canevas.create_image(0,0, image= self.imgJeu, anchor= NW)
 		##################################################################################################
 
 
