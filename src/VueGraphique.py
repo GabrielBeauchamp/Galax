@@ -1,4 +1,4 @@
-from tkinter import*
+from tkinter import *
 
 class VueGraphique(Frame):
 	def __init__(self):
@@ -38,7 +38,7 @@ class VueGraphique(Frame):
 		self.canevas = Canvas(self.fenetreMenu, width=width, height=height, bd=-2)
 		self.canevas.pack() # LOOK: Got a pack there.
 
-		self.imgMenu = PhotoImage(file= "imageSource\menuScene.gif")
+		self.imgMenu = PhotoImage(file= "imageSource/menuScene.gif")
 		self.canevas.create_image(0,0, image= self.imgMenu, anchor= NW)
 
 		bouton_nouvelle_partie = Button(self.fenetreMenu, text= "NOUVELLE PARTIE", bg="black", fg= "white", width= 30, height= 2,command= self.Bouton_Nouvelle_Partie)
@@ -83,7 +83,7 @@ class VueGraphique(Frame):
 		self.canevas = Canvas(panelCanevas, width= 960, height=640, bd=-2, bg= "black")
 		self.canevas.grid(padx= 5 ,pady= 5)
 
-		self.imgJeu = PhotoImage(file= "imageSource\playScene.gif")
+		self.imgJeu = PhotoImage(file= "imageSource/playScene.gif")
 		self.canevas.create_image(0,0, image= self.imgJeu, anchor= NW)
 		##################################################################################################
 
@@ -98,7 +98,7 @@ class VueGraphique(Frame):
 		labelNbPlanetPlayer = Label(panelNbPlanetPlayer, text= "--- Nomber of planets ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
 		labelNbPlanetPlayer.grid(row= 0, column= 0, columnspan= 2)
 
-		imgPlanetHumain = PhotoImage(file="imageSource\planetHumain.gif")
+		imgPlanetHumain = PhotoImage(file="imageSource/planetHumain.gif")
 		labelImageHumain = Label(panelNbPlanetPlayer, image= imgPlanetHumain, bg= "gray")
 		labelImageHumain.image = imgPlanetHumain
 		labelImageHumain.grid(row= 1, column= 0, sticky= E, pady= 5)
@@ -106,7 +106,7 @@ class VueGraphique(Frame):
 		labelHumain = Label(panelNbPlanetPlayer, text= "Humain : ", bg="gray")
 		labelHumain.grid(row= 1, column= 1, sticky= W, padx=5, pady= 8)
 
-		imgPlanetGubru = PhotoImage(file="imageSource\planetGubru.gif")
+		imgPlanetGubru = PhotoImage(file="imageSource/planetGubru.gif")
 		labelImageGubru = Label(panelNbPlanetPlayer, image= imgPlanetGubru, bg= "gray")
 		labelImageGubru.image= imgPlanetGubru
 		labelImageGubru.grid(row= 2, column= 0, sticky= E, pady= 5)
@@ -114,7 +114,7 @@ class VueGraphique(Frame):
 		labelGubru = Label(panelNbPlanetPlayer, text= "Gubru    : ", bg="gray")
 		labelGubru.grid(row= 2, column= 1, sticky= W, padx=5, pady= 8)
 
-		imgPlanetCzin = PhotoImage(file="imageSource\planetCzin.gif")
+		imgPlanetCzin = PhotoImage(file="imageSource/planetCzin.gif")
 		labelImageCzin = Label(panelNbPlanetPlayer, image= imgPlanetCzin, bg="gray")
 		labelImageCzin.image = imgPlanetCzin
 		labelImageCzin.grid(row= 3, column= 0, sticky= E, pady= 5)
