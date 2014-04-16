@@ -1,9 +1,6 @@
 import random
 import math
 
-from IA import *
-from VueGraphique import *
-
 class Race():
     humain = 0
     gubru = 1
@@ -17,7 +14,7 @@ class Etoile():
         self.nbShip = 0
         self.nivInt = 0
         self.numeroEtoile = numeroEtoile
-        self.proprio = proprio
+        self.proprio =  proprio
         self.racePresentes = []
         self.setNombreManifacture()
 
@@ -25,12 +22,12 @@ class Etoile():
         self.nbManu = random.randint(0, 6)
 
 class Flotte():
-    def __init__(self, nbShip, prorio, depart):
+    def __init__(self, nbShip, prorio):
         self.parent = parent
         self.noIdent = noIdent
         self.nbShip = nbShip
         self.prorio = prorio
-        self.depart = depart
+        self.depart = None
         self.arrive = None
         self.momentDepart = None
         self.momentArrivee = None
@@ -42,7 +39,7 @@ class AireJeu():
         self.yMax=yMax
 
 class Modele():
-    def __init__(self, parent, xMax, yMax, nbEtoile):
+    def __init__(self, parent, xMax, yMax, nbEtoile): 
         self.nbEtoiles = nbEtoile
         self.etoiles = []
         self.tourFini = False
@@ -63,9 +60,9 @@ class Modele():
             return False
         
     def commencerPartie(self):
-        self.planeteMaxAtteint = 0
-        self.xMax = self.aireDeJeu.xMax
-        self.yMax = self.aireDeJeu.yMax
+        self.planeteMaxAtteint = 0 
+        self.xMax = self.aireDeJeu.xMax 
+        self.yMax = self.aireDeJeu.yMax 
         self.PosX = 0;
         self.posY = 0
         self.planeteMaxAtteint = 0
@@ -116,13 +113,13 @@ class Modele():
         print (self.planeteMaxAtteint)
         self.verifierTableau()
 
-    def etoilePresente (self, x, y):
+    def etoileNonPresente (self, x, y): 
         for Etoile in self.etoiles:
             if Etoile.x == x and Etoile.y == y :
-                return True
-        return False
+                return False
+        return True
 
-    def verifierTableau (self): #fonction de test
+    def verifierTableau (self):  #fonction de test
         self.numero=0
         for i in range(self.aireDeJeu.yMax):
             for j in range(self.aireDeJeu.xMax):
@@ -183,19 +180,23 @@ class Modele():
             if len(racePresentes) > 1:
                 self.etoileEnConflit.append(noEtoile)
 
-    def combat(self,defenseurs,attaquants,Etoile): ##trouver moyen de changer le proprio de l'étoile suite au combat
+    def combat(self,defenseurs,attaquants,Etoile, propAttaquant,propDefenseur):    
         while attaquants > 0 or defenseurs > 0:
-            if randint(0,100) >=70:
+            if  randint(0,100) >=70:
                 attaquants-1
             if randint(0,100) >=70:
-                defenseurs-1
+                 defenseurs-1
 
-        if defenseurs >0:
-            Etoile.nbShip = defenseurs
-        elif attaquants > 0:
-            Etoile.nbShip = attaquants
+            if defenseurs >0:
+                Etoile.nbShip = defenseurs
+                
+            elif attaquants > 0:
+                Etoile.nbShip = attaquants
 
-    
+        if defenseurs == 0:
+            Etoile.proprio = propAttaquant
+        elif attaquants == 0:
+            Etoile.proprio == propDefenseur
         
     def ajouterTemps (self):
         self.temps=self.Temps+0.1
@@ -204,7 +205,7 @@ class Modele():
         tempsVoyage=0
 
         if xDepart == xArrivee:
-            if abs(yArrivee - yDepart) <= 2:
+            if  abs(yArrivee - yDepart) <= 2:
                 tempsVoyage = (abs(yArrivee - yDepart) / 2)
                                
             elif abs(yArrivee - yDepart) > 2:
@@ -220,7 +221,7 @@ class Modele():
         if ((yDepart != yArrivee) and (xDepart != xArrivee)):
             if (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) <= 2:
                   tempsVoyage = (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) /2
-            elif (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) > 2:
+            elif (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) > 2: 
                   tempsVoyage = 1+ (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))) -2) / 3)
 
     def joueurProprio (self, tag):
@@ -235,7 +236,7 @@ class Modele():
         tag[6:]
         return self.etoiles[tag].nivInt
 
-    def creerFlotte (self,tag,nbShip,proprio): ##les AI utilisent cette fonction pour creer leur flottes
+    def creerFlotte (self,tag,nbShip,proprio):                ##les AI utilisent cette fonction pour creer leur flottes
         tag[6:]
         if self.etoiles[tag].nbShip >= nbShip:
             self.flotte.append(Flotte(nbShip,proprio))
@@ -245,7 +246,7 @@ class Modele():
         else:
            return False
         
-    def donnerDesFlottes (tagFlotte,tagEtoile):
+    def donnerDestFlotte (tagFlotte,tagEtoile):
         tagFlotte[6:]
         tagEtoile[6:]
         self.flotte[tagFlotte].arrivee = self.etoiles[tagEtoile]
@@ -267,7 +268,7 @@ class Controleur():
             #incrementation 0.1 encore
             #incrementation -batailles etc
         #verification si un tour est passé
-        #verification si la partie est finie
+        #verification si la partie est finie                       
         #si tour passé,si partie non finie incrémentation des vaisseaus sur chaque étoile conquise
         #Re-tour du joueur
         #on recommence jusqu'à la fin de la partie
@@ -278,5 +279,3 @@ class Controleur():
 if __name__ == "__main__":
     
     controleur = Controleur()
-    v = VueGraphique()
-    v.mainloop() 
