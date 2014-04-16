@@ -1,4 +1,4 @@
-from tkinter import*
+from tkinter import *
 
 class VueGraphique(Frame):
 	def __init__(self):
@@ -38,7 +38,7 @@ class VueGraphique(Frame):
 		self.canevas = Canvas(self.fenetreMenu, width=width, height=height, bd=-2)
 		self.canevas.pack() # LOOK: Got a pack there.
 
-		self.imgMenu = PhotoImage(file= "imageSource\menuScene.gif")
+		self.imgMenu = PhotoImage(file= "imageSource/menuScene.gif")
 		self.canevas.create_image(0,0, image= self.imgMenu, anchor= NW)
 
 		bouton_nouvelle_partie = Button(self.fenetreMenu, text= "NOUVELLE PARTIE", bg="black", fg= "white", width= 30, height= 2,command= self.Bouton_Nouvelle_Partie)
@@ -83,7 +83,7 @@ class VueGraphique(Frame):
 		self.canevas = Canvas(panelCanevas, width= 960, height=640, bd=-2, bg= "black")
 		self.canevas.grid(padx= 5 ,pady= 5)
 
-		self.imgJeu = PhotoImage(file= "imageSource\playScene.gif")
+		self.imgJeu = PhotoImage(file= "imageSource/playScene.gif")
 		self.canevas.create_image(0,0, image= self.imgJeu, anchor= NW)
 		##################################################################################################
 

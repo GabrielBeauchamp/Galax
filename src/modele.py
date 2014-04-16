@@ -1,6 +1,9 @@
 import random
 import math
 
+from IA import *
+from VueGraphique import *
+
 class Race():
     humain = 0
     gubru = 1
@@ -22,12 +25,12 @@ class Etoile():
         self.nbManu = random.randint(0, 6)
 
 class Flotte():
-    def __init__(self, nbShip, prorio):
+    def __init__(self, nbShip, prorio, depart):
         self.parent = parent
         self.noIdent = noIdent
         self.nbShip = nbShip
         self.prorio = prorio
-        self.depart = None
+        self.depart = depart
         self.arrive = None
         self.momentDepart = None
         self.momentArrivee = None
@@ -242,7 +245,7 @@ class Modele():
         else:
            return False
         
-    def donnerDestFlotte (tagFlotte,tagEtoile):
+    def donnerDesFlottes (tagFlotte,tagEtoile):
         tagFlotte[6:]
         tagEtoile[6:]
         self.flotte[tagFlotte].arrivee = self.etoiles[tagEtoile]
@@ -275,3 +278,5 @@ class Controleur():
 if __name__ == "__main__":
     
     controleur = Controleur()
+    v = VueGraphique()
+    v.mainloop() 

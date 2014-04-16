@@ -1,9 +1,10 @@
-class NPC():
+class Humain():
     def __init__(self, parent):
         self.parent = parent     # Ca va etre Modele
         self.etoilePossedee = [] # Liste d'etoile
         self.nbVaisseau = 100   # Le nombre total
         self.nbManifacture = 10 # Le nombre total
+        self.flottes = []
 
     def joueSonTour(self):
         pass
@@ -12,9 +13,20 @@ class NPC():
         total = 0
         for etoile in self.etoilePossedee:
             total += etoile.nbVaisseau
+        self.nbVaisseau = total
+
+    def formeFlotte(self, nbShip, race, etoile):
+        etoile.flottes.append(Flotte(nbShip, race, etoile))
+        etoile.nbShip -= nbShip
+        
 
 class Gubru():
     def __init__(self, modele):
+        self.etoilePossedee = [] # Liste d'etoile
+        self.nbVaisseau = 100   # Le nombre total
+        self.nbManifacture = 10 # Le nombre total
+        self.flottes = []
+
         self.modele = modele
         # Parce que la premiere est de facto l'etoile mere.
         self.etoileMere = self.etoilePossedee[0]
@@ -22,7 +34,7 @@ class Gubru():
         self.nbVaisseauParAttaque = 5
         self.forceAttaqueBasique = 10
         self.puissanceAttaque   # ou force_attaque
-        self.flottes = []
+
         
     def joueSonTour(self):
         # En premier, on change (ou pas) l'etoile mere.
@@ -35,6 +47,9 @@ class Gubru():
 
         # On l'attaque
 
+    def formeFlotte(self, etoile, nbShip):
+        etoile.flottes.append(Flotte(nbShip, Race.gubru, etoile))
+        etoile.nbShip -= nbShip
     
     def doitChangerEtoileMere(self):
         for etoile in self.etoilePossedee:
@@ -62,8 +77,8 @@ class Gubru():
 
     def formationFlottes(self):
         while self.etoileMere.nbShip > self.puissaceAttaque + self.forceAttaqueBasique:
-            self.flottes.append(Flotte(self.puissaceAttaque, "Gubru"))
-            self.etoileMere.nbShip -= self.puissaceAttaque # J'aime pas du tout.
+            self.formeFlotte(self.etoileMere, self.puissaceAttaque)
+
 
     def trouverEtoile(self):    # Cherche une etoile a attaquer. Retourne l'etoile.
         distance = []
@@ -71,17 +86,20 @@ class Gubru():
             if etoile.prorio == Race.gubru:
                 pass            # Si c'est une des miennes, je fais rien.
             else:
-                x = Math.abs(etoile.x - self.x)
-                y = Math.abs(etoile.y - self.y)
+                x = abs(etoile.x - self.x)
+                y = abs(etoile.y - self.y)
                 distance.append(y + x) # C'est sale. Je sais.
         distance.sort()                # Je suis desole.
         return distance[0]             # Mais ca devrait fonctionner.
-        # Bon ok.. kinda~ish..
 
-class Czin(NPC):
+
+class Czin():
     def __init__(self, modele):
         self.modele = modele
 
     def joueSonTour(self):
         pass
         
+if __name__ == "__main__":
+    
+    print("works")
