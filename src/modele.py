@@ -173,7 +173,7 @@ class Modele():
             for j in range (i.nbManu):
                 i.vaisseaux.append(Vaisseaux ())
                 
-
+    
     
     def verifierCombat(self):
         for Etoile in self.etoiles:
@@ -182,16 +182,21 @@ class Modele():
 
     def combat(self,defenseurs,attaquants,Etoile, propAttaquant,propDefenseur):    
         while attaquants > 0 or defenseurs > 0:
-            if  randint(0,100) >=70:
-                attaquants-1
-            if randint(0,100) >=70:
-                 defenseurs-1
+            if defenseurs/attaquants <= 0.05:
+                if  randint(0,100) >=70:
+                    attaquants-1
+                if randint(0,100) >=70:
+                    defenseurs-1
+            else:
+                if  randint(0,100) >=70:
+                    defenseurs-1
+                if randint(0,100) >=70:
+                    attaquants-1
 
-            if defenseurs >0:
-                Etoile.nbShip = defenseurs
-                
-            elif attaquants > 0:
-                Etoile.nbShip = attaquants
+        if defenseurs >0:
+            Etoile.nbShip = defenseurs    
+        elif attaquants > 0:
+            Etoile.nbShip = attaquants
 
         if defenseurs == 0:
             Etoile.proprio = propAttaquant
@@ -223,6 +228,19 @@ class Modele():
                   tempsVoyage = (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) /2
             elif (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) > 2: 
                   tempsVoyage = 1+ (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))) -2) / 3)
+
+    def calculDistance (self, etoileDepart,etoileArrivee):
+        if etoileDepart.x == etoileArrivee.x:
+            distance = abs(etoileDepart.y - etoileArrivee.y)
+
+        elif etoileDepart.y == etoileArrivee.y:
+            distance = abs(etoileDepart.x - etoileArrivee.x)
+
+        elif (etoileDepart.y != etoileArrivee.y) and (etoileDepart.x != etoileArrivee.x):
+            distance = math.trunc ( ( math.pow (abs(etoileArrivee - etoileDepart, 2)) + math.pow(abs(etoileArrivee - etoileDepart, 2))))
+
+        return distance
+
 
     def joueurProprio (self, tag):
         tag[6:]
@@ -266,8 +284,13 @@ class Controleur():
     def __init__(self):
         self.modele = Modele(self, 30, 20, 40)
         self.modele.commencerPartie()
-        #note ajouterTemps et VerifierTourFini et #verifier partiefini est ici
-        #cree le modele
+
+        #verifier partiefin
+        #ajouterTemps
+
+
+ 
+
         #tour du joueur
         #tour des Gubru
         #tour des Czin
