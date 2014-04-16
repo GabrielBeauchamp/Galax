@@ -42,7 +42,7 @@ class Gubru():
     def joueSonTour(self):
         # En premier, on change (ou pas) l'etoile mere.
         # Le test est dans la fonction.
-        changerEtoileMere()
+        self.changerEtoileMere()
 
         # On calcules les forces d'attaque.
         self.puissaceAttaque = calculPuissanceAttaque()
@@ -66,7 +66,7 @@ class Gubru():
         return True # Faut changer d'etoile mere.
 
     def changerEtoileMere(self):
-        if doitChangerEtoileMere():
+        if self.doitChangerEtoileMere():
             # J'ai envie de chercher celle qui est le plus securisee
             # Mais pour l'instant, je fais juste prendre la premiere de la liste
             # En fait la doc dit de prendre la premiere de la liste.
@@ -86,7 +86,7 @@ class Gubru():
             self.formeFlotte(self.etoileMere, self.puissaceAttaque)
 
 
-    def sortDistanceEtoile(self):    # Cherche une etoile a attaquer. Retourne l'etoile.
+    def sortDistanceEtoile(self):
         distance = []
         for etoile in self.modele.etoiles: 
             if etoile.prorio == Race.gubru:
@@ -105,9 +105,9 @@ class Gubru():
         etoileSort = sortDistanceEtoile()
         i = 0
         for flotte in self.flottes:
-            if i > len(etoileSort)
-            envoitFlotte(flotte, etoileSort[i][1]) # C'est un tuple.
-            i += 1
+            if i <= len(etoileSort):
+                self.envoitFlotte(flotte, etoileSort[i][1]) # C'est un tuple.
+                i += 1
 
     def rapatriement(self):
         flotte = []
