@@ -1,9 +1,6 @@
 import random
 import math
 
-from IA import *
-from VueGraphique import *
-
 class Race():
     humain = 0
     gubru = 1
@@ -25,12 +22,12 @@ class Etoile():
         self.nbManu = random.randint(0, 6)
 
 class Flotte():
-    def __init__(self, nbShip, prorio, depart):
+    def __init__(self, nbShip, prorio):
         self.parent = parent
         self.noIdent = noIdent
         self.nbShip = nbShip
         self.prorio = prorio
-        self.depart = depart
+        self.depart = None
         self.arrive = None
         self.momentDepart = None
         self.momentArrivee = None
@@ -183,19 +180,23 @@ class Modele():
             if len(racePresentes) > 1:
                 self.etoileEnConflit.append(noEtoile)
 
-    def combat(self,defenseurs,attaquants,Etoile):    ##trouver moyen de changer le proprio de l'étoile suite au combat
+    def combat(self,defenseurs,attaquants,Etoile, propAttaquant,propDefenseur):    
         while attaquants > 0 or defenseurs > 0:
-            if randint(0,100) >=70:
+            if  randint(0,100) >=70:
                 attaquants-1
             if randint(0,100) >=70:
-                defenseurs-1
+                 defenseurs-1
 
-        if defenseurs >0:
-            Etoile.nbShip = defenseurs
-        elif attaquants > 0:
-            Etoile.nbShip = attaquants
+            if defenseurs >0:
+                Etoile.nbShip = defenseurs
+                
+            elif attaquants > 0:
+                Etoile.nbShip = attaquants
 
-    
+        if defenseurs == 0:
+            Etoile.proprio = propAttaquant
+        elif attaquants == 0:
+            Etoile.proprio == propDefenseur
         
     def ajouterTemps (self):
         self.temps=self.Temps+0.1
@@ -235,6 +236,15 @@ class Modele():
         tag[6:]
         return self.etoiles[tag].nivInt
 
+    def IncrementerIntel (self, tag):
+        tag[6:]
+        if self.etoiles[tag].nivInt == 0:
+            self.etoiles[tag].nivInt =1
+        if self.etoiles[tag].nivInt == 1:
+            self.etoiles[tag].nivInt =2
+        if self.etoiles[tag].nivInt == 2:
+            self.etoiles[tag].nivInt =3
+
     def creerFlotte (self,tag,nbShip,proprio):                ##les AI utilisent cette fonction pour creer leur flottes
         tag[6:]
         if self.etoiles[tag].nbShip >= nbShip:
@@ -245,7 +255,7 @@ class Modele():
         else:
            return False
         
-    def donnerDesFlottes (tagFlotte,tagEtoile):
+    def donnerDestFlotte (tagFlotte,tagEtoile):
         tagFlotte[6:]
         tagEtoile[6:]
         self.flotte[tagFlotte].arrivee = self.etoiles[tagEtoile]
@@ -254,7 +264,7 @@ class Modele():
 
 class Controleur():
     def __init__(self):
-        self.modele = Modele(self, 10, 10, 40)
+        self.modele = Modele(self, 30, 20, 40)
         self.modele.commencerPartie()
         #note ajouterTemps et VerifierTourFini et #verifier partiefini est ici
         #cree le modele
@@ -278,5 +288,3 @@ class Controleur():
 if __name__ == "__main__":
     
     controleur = Controleur()
-    v = VueGraphique()
-    v.mainloop() 
