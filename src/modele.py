@@ -17,7 +17,7 @@ class Etoile():
         self.proprio =  proprio
         self.racePresentes = []
         self.setNombreManifacture()
-
+        self.valeurGrappe       # Pour les Czin
     def setNombreManifacture(self):
         self.nbManu = random.randint(0, 6)
 

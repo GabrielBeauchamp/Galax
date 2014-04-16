@@ -19,7 +19,10 @@ class Humain():
         etoile.flottes.append(Flotte(nbShip, race, etoile))
         etoile.nbShip -= nbShip
         
-
+    def envoitFlotte(self, flotte, arrivee):
+        flotte.arrive = arrivee
+        flotte.momentDepart = modele.temps
+        
 class Gubru():
     def __init__(self, modele):
         self.etoilePossedee = [] # Liste d'etoile
@@ -43,9 +46,12 @@ class Gubru():
 
         # On calcules les forces d'attaque.
         self.puissaceAttaque = calculPuissanceAttaque()
-        # On trouve une planete a attaquer
-
+        # On prepare les flottes
+        self.formationFlottes()
         # On l'attaque
+        self.attaqueEtoiles()
+        self.rapatriement()
+
 
     def formeFlotte(self, etoile, nbShip):
         etoile.flottes.append(Flotte(nbShip, Race.gubru, etoile))
@@ -80,21 +86,50 @@ class Gubru():
             self.formeFlotte(self.etoileMere, self.puissaceAttaque)
 
 
-    def trouverEtoile(self):    # Cherche une etoile a attaquer. Retourne l'etoile.
+    def sortDistanceEtoile(self):    # Cherche une etoile a attaquer. Retourne l'etoile.
         distance = []
         for etoile in modele.etoiles: 
             if etoile.prorio == Race.gubru:
                 pass            # Si c'est une des miennes, je fais rien.
             else:
-                x = abs(etoile.x - self.x)
-                y = abs(etoile.y - self.y)
-                distance.append(y + x) # C'est sale. Je sais.
-        distance.sort()                # Je suis desole.
-        return distance[0]             # Mais ca devrait fonctionner.
+                a = modele.distance(self.etoileMere, etoile)
+                distance.append((a, etoile)) # Un tuple
+        distance.sort()                
+        return distance             
 
+    def envoitFlotte(self, flotte, arrivee):
+        flotte.arrive = arrivee
+        flotte.momentDepart = modele.temps
+
+    def attaqueEtoiles(self):
+        etoileSort = sortDistanceEtoile()
+        i = 0
+        for flotte in self.flottes:
+            if i > len(etoileSort)
+            envoitFlotte(flotte, etoileSort[i][1]) # C'est un tuple.
+            i += 1
+
+    def rapatriement(self):
+        flotte = []
+        for f in self.flottes:
+            # Si la flotte est pas en mouvement. Et qu'elle est pas sur l'etoileMere
+            if f.arrive == None and f.depart != self.etoileMere: 
+                flotte.append(f)
+
+        for f in flotte:
+            if f.nbShip > 25:   # Si le nombre de vaisseau est plus que 25
+                newF = Flotte(15, Race.gubru, f.depart) # On en laisse 15
+                f.nbShip -= 15
+                self.envoitFlotte(f, self.etoileMere) # On envoit le reste a etoileMere
+                self.flottes.append(newF)             # On ajoute la nouvelle flotte
 
 class Czin():
     def __init__(self, modele):
+        self.etoilePossedee = [] # Liste d'etoile
+        self.nbVaisseau = 100   # Le nombre total
+        self.nbManifacture = 10 # Le nombre total
+        self.flottes = []
+
         self.modele = modele
 
     def joueSonTour(self):
