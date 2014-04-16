@@ -236,6 +236,15 @@ class Modele():
         tag[6:]
         return self.etoiles[tag].nivInt
 
+    def IncrementerIntel (self, tag):
+        tag[6:]
+        if self.etoiles[tag].nivInt == 0:
+            self.etoiles[tag].nivInt =1
+        if self.etoiles[tag].nivInt == 1:
+            self.etoiles[tag].nivInt =2
+        if self.etoiles[tag].nivInt == 2:
+            self.etoiles[tag].nivInt =3
+
     def creerFlotte (self,tag,nbShip,proprio):                ##les AI utilisent cette fonction pour creer leur flottes
         tag[6:]
         if self.etoiles[tag].nbShip >= nbShip:
