@@ -39,3 +39,5 @@ nosetests.xml
 *~
 *.bak
 *.tmp
+/src/.#modele.py
+/src/#modele.py#

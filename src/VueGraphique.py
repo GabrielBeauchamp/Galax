@@ -32,11 +32,11 @@ class VueGraphique(Frame):
 
 	def AfficherMenuUI(self):
 		self.fenetreMenu.title("Galax - Menu")
-		width= 960
+		width= 960      # LOOK: Magic numbers?
 		height= 640
 
 		self.canevas = Canvas(self.fenetreMenu, width=width, height=height, bd=-2)
-		self.canevas.pack()
+		self.canevas.pack() # LOOK: Got a pack there.
 
 		self.imgMenu = PhotoImage(file= "imageSource\menuScene.gif")
 		self.canevas.create_image(0,0, image= self.imgMenu, anchor= NW)
@@ -63,16 +63,17 @@ class VueGraphique(Frame):
 		print("+1 Ship")
 
 	# Gestion de la sourir
-	def MouseManeger(self, event):
+	def MouseManeger(self, event): # LOOK: Dude.. fait un peu attention au francais ><
 		X= int(event.x/32)
 		Y= int(event.y/32)
-		print("Position du Clic ->", X,',', Y)
+		print("Position du Clic ->", X,',', Y) # LOOK: Oh et la fonction sert a rien.
+                # LOOK: Devrait retourner un tuple.
 
 
 	def AfficherJeuUI(self):
 		self.fenetreJeu = Tk()
 		self.fenetreJeu.title("Galax - Jeu")
-		width= 1200
+		width= 1200     # LOOK: Magic numbers \o/
 		height= 720
 
 		########################################Panel Canevas#############################################
@@ -186,7 +187,7 @@ class VueGraphique(Frame):
 
 		self.centerWindow(width, height, self.fenetreJeu)
 
-
+                # LOOK:  OK COME THE FUCK ON seriously avec la fonction qui finit pas?
 
 #Main
 if __name__ == '__main__':
