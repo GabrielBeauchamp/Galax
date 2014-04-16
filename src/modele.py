@@ -14,7 +14,7 @@ class Etoile():
         self.nbShip = 0
         self.nivInt = 0
         self.numeroEtoile = numeroEtoile
-        self.proprio =  proprio
+        self.proprio = proprio
         self.racePresentes = []
         self.setNombreManifacture()
 
@@ -39,7 +39,7 @@ class AireJeu():
         self.yMax=yMax
 
 class Modele():
-    def __init__(self, parent, xMax, yMax, nbEtoile): 
+    def __init__(self, parent, xMax, yMax, nbEtoile):
         self.nbEtoiles = nbEtoile
         self.etoiles = []
         self.tourFini = False
@@ -60,9 +60,9 @@ class Modele():
             return False
         
     def commencerPartie(self):
-        self.planeteMaxAtteint = 0 
-        self.xMax = self.aireDeJeu.xMax 
-        self.yMax = self.aireDeJeu.yMax 
+        self.planeteMaxAtteint = 0
+        self.xMax = self.aireDeJeu.xMax
+        self.yMax = self.aireDeJeu.yMax
         self.PosX = 0;
         self.posY = 0
         self.planeteMaxAtteint = 0
@@ -113,13 +113,13 @@ class Modele():
         print (self.planeteMaxAtteint)
         self.verifierTableau()
 
-    def etoileNonPresente (self, x, y): 
+    def etoilePresente (self, x, y):
         for Etoile in self.etoiles:
             if Etoile.x == x and Etoile.y == y :
-                return False
-        return True
+                return True
+        return False
 
-    def verifierTableau (self):  #fonction de test
+    def verifierTableau (self): #fonction de test
         self.numero=0
         for i in range(self.aireDeJeu.yMax):
             for j in range(self.aireDeJeu.xMax):
@@ -180,7 +180,7 @@ class Modele():
             if len(racePresentes) > 1:
                 self.etoileEnConflit.append(noEtoile)
 
-    def combat(self,defenseurs,attaquants,Etoile):    ##trouver moyen de changer le proprio de l'étoile suite au combat
+    def combat(self,defenseurs,attaquants,Etoile): ##trouver moyen de changer le proprio de l'étoile suite au combat
         while attaquants > 0 or defenseurs > 0:
             if randint(0,100) >=70:
                 attaquants-1
@@ -201,7 +201,7 @@ class Modele():
         tempsVoyage=0
 
         if xDepart == xArrivee:
-            if  abs(yArrivee - yDepart) <= 2:
+            if abs(yArrivee - yDepart) <= 2:
                 tempsVoyage = (abs(yArrivee - yDepart) / 2)
                                
             elif abs(yArrivee - yDepart) > 2:
@@ -217,7 +217,7 @@ class Modele():
         if ((yDepart != yArrivee) and (xDepart != xArrivee)):
             if (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) <= 2:
                   tempsVoyage = (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) /2
-            elif (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) > 2: 
+            elif (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) > 2:
                   tempsVoyage = 1+ (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))) -2) / 3)
 
     def joueurProprio (self, tag):
@@ -232,7 +232,7 @@ class Modele():
         tag[6:]
         return self.etoiles[tag].nivInt
 
-    def creerFlotte (self,tag,nbShip,proprio):                ##les AI utilisent cette fonction pour creer leur flottes
+    def creerFlotte (self,tag,nbShip,proprio): ##les AI utilisent cette fonction pour creer leur flottes
         tag[6:]
         if self.etoiles[tag].nbShip >= nbShip:
             self.flotte.append(Flotte(nbShip,proprio))
@@ -251,7 +251,7 @@ class Modele():
 
 class Controleur():
     def __init__(self):
-        self.modele = Modele(self, 10, 10, 40)
+        self.modele = Modele(self, 30, 20, 40)
         self.modele.commencerPartie()
         #note ajouterTemps et VerifierTourFini et #verifier partiefini est ici
         #cree le modele
@@ -264,7 +264,7 @@ class Controleur():
             #incrementation 0.1 encore
             #incrementation -batailles etc
         #verification si un tour est passé
-        #verification si la partie est finie                       
+        #verification si la partie est finie
         #si tour passé,si partie non finie incrémentation des vaisseaus sur chaque étoile conquise
         #Re-tour du joueur
         #on recommence jusqu'à la fin de la partie
