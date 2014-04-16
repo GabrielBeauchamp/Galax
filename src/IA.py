@@ -65,6 +65,18 @@ class Gubru():
             self.flottes.append(Flotte(self.puissaceAttaque, "Gubru"))
             self.etoileMere.nbShip -= self.puissaceAttaque # J'aime pas du tout.
 
+    def trouverEtoile(self):    # Cherche une etoile a attaquer. Retourne l'etoile.
+        distance = []
+        for etoile in modele.etoiles: 
+            if etoile.prorio == Race.gubru:
+                pass            # Si c'est une des miennes, je fais rien.
+            else:
+                x = Math.abs(etoile.x - self.x)
+                y = Math.abs(etoile.y - self.y)
+                distance.append(y + x) # C'est sale. Je sais.
+        distance.sort()                # Je suis desole.
+        return distance[0]             # Mais ca devrait fonctionner.
+        # Bon ok.. kinda~ish..
 
 class Czin(NPC):
     def __init__(self, modele):
