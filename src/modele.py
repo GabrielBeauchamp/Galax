@@ -17,7 +17,7 @@ class Etoile():
         self.proprio =  proprio
         self.racePresentes = []
         self.setNombreManifacture()
-        self.valeurGrappe       # Pour les Czin
+
     def setNombreManifacture(self):
         self.nbManu = random.randint(0, 6)
 
@@ -229,7 +229,7 @@ class Modele():
             elif (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) > 2: 
                   tempsVoyage = 1+ (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))) -2) / 3)
 
-    def calculDistance (self, etoileDepart,etoileArrivee):
+    def calculerDistance (self, etoileDepart,etoileArrivee):
         if etoileDepart.x == etoileArrivee.x:
             distance = abs(etoileDepart.y - etoileArrivee.y)
 
@@ -282,11 +282,24 @@ class Modele():
 
 class Controleur():
     def __init__(self):
+        
         self.modele = Modele(self, 30, 20, 40)
         self.modele.commencerPartie()
-
-        #verifier partiefin
-        #ajouterTemps
+            #afficherVue()
+        while not verifierPartieFinie():
+            #while not AppuyerLaunch():
+                #tourHumain()
+            TourGubru()
+            TourCzin()
+            while not verifierTourFini()
+                ajouterTemps()
+                verifierFlotteArrivee()
+                verifierCombat()
+                combat()
+            #updateVue()
+            incrementerVaisseau()
+        partieFinie()
+        recommencer()
 
 
  
