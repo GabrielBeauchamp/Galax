@@ -17,9 +17,9 @@ class Etoile():
         self.proprio =  proprio
         self.racePresentes = []
         self.setNombreManifacture()
-        self.czinValeurGrappe       # Pour les Czin
-        self.czinValeurBase
-
+        self.czinValeurGrappe = 0      # Pour les Czin
+        self.czinValeurBase = 0
+        
     def setNombreManifacture(self):
         self.nbManu = random.randint(0, 6)
 
@@ -288,19 +288,19 @@ class Controleur():
         self.modele = Modele(self, 30, 20, 40)
         self.modele.commencerPartie()
         #afficherVue()
-        while not verifierPartieFinie():
-            tourHumain()
+       # while not verifierPartieFinie():
+          #  tourHumain()
             #tourGubru() -appelle Gubru.joueSonTour
             #tourCzin()  -appelle Czin.joueSonTour            
-            while not verifierTourFini():
-                ajouterTemps()
+           # while not verifierTourFini():
+              # ajouterTemps()
                 #verifierFlotteArrivee()
-                verifierCombat()
-                combat()
+              #  verifierCombat()
+              #  combat()
             #updateVue()
-            incrementerVaisseau()
-        partieFinie()
-        recommencerNouvellePartie()
+         #   incrementerVaisseau()
+       # partieFinie()
+       # recommencerNouvellePartie()
 
 
         #GAME OVER merci d'avoir joué à Galax
