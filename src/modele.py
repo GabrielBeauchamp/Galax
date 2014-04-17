@@ -285,38 +285,22 @@ class Controleur():
         
         self.modele = Modele(self, 30, 20, 40)
         self.modele.commencerPartie()
-            #afficherVue()
+        #afficherVue()
         while not verifierPartieFinie():
-            #while not AppuyerLaunch():
-                #tourHumain()
-            TourGubru()
-            TourCzin()
-            while not verifierTourFini()
+            tourHumain()
+            #tourGubru() -appelle Gubru.joueSonTour
+            #tourCzin()  -appelle Czin.joueSonTour            
+            while not verifierTourFini():
                 ajouterTemps()
-                verifierFlotteArrivee()
+                #verifierFlotteArrivee()
                 verifierCombat()
                 combat()
             #updateVue()
             incrementerVaisseau()
         partieFinie()
-        recommencer()
+        recommencerNouvellePartie()
 
 
- 
-
-        #tour du joueur
-        #tour des Gubru
-        #tour des Czin
-            #incrementation de temps 0.1
-            #verification batailles
-            #batailles
-            #incrementation 0.1 encore
-            #incrementation -batailles etc
-        #verification si un tour est passé
-        #verification si la partie est finie                       
-        #si tour passé,si partie non finie incrémentation des vaisseaus sur chaque étoile conquise
-        #Re-tour du joueur
-        #on recommence jusqu'à la fin de la partie
         #GAME OVER merci d'avoir joué à Galax
         #note pour drago : mettre des tags les icone etoile pour que ca retourne le tag : "etoile+nbEtoile"
         #note tester tout le transtypage de l'operation tag
