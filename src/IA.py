@@ -171,6 +171,8 @@ class Czin():
             for etoile in self.modele.etoiles:
                 if self.modele.calculerDistance(etoile, self.base) <= self.distanceRassemblement:
                     for f in etoile.flottes:
+                        newF = Flotte(3, Race.czin, f.depart) # On en laisse trois
+                        f.nbShip -= 3
                         self.envoitFlotte(f, self.base)
                 else:
                     self.base = self.etoileMere
@@ -180,7 +182,7 @@ class Czin():
         flotte.momentDepart = self.modele.temps
 
     def formeFlotte(self, etoile, nbShip):
-        etoile.flottes.append(Flotte(nbShip, Race.gubru, etoile))
+        etoile.flottes.append(Flotte(nbShip, Race.czin, etoile))
         etoile.nbShip -= nbShip
 
         
@@ -190,6 +192,3 @@ class CzinMode():
     conquerirGrappe = 2
     
 
-if __name__ == "__main__":
-    
-    print("works")
