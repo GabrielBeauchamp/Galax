@@ -137,14 +137,20 @@ class Czin():
         self.nbVaisseauParAttaque = 4
         self.forceAttaqueBasique = 20
 
-        self.base
+        self.base = self.etoileMere
         
-        self.mode
+        self.mode = CzinMode.rassemblerForces
         self.modele = modele
 
     def joueSonTour(self):
         self.initialiseValeurGrappe()
-
+        self.calculForceAttaque()
+        if self.mode == CzinMode.rassemblerForces:
+            if self.base.nbShip == 3 * self.forceAttaque:
+                self.mode = CzinMode.etablirBase 
+                self.choisitBase()
+                
+            
 
     # Je sais vraiment pas si ca fonctionne
     def initialiseValeurGrappe(self):
@@ -162,7 +168,7 @@ class Czin():
                 etoile.czinValeurBase = 0
             else:
                 etoile.czinValeurBase = etoile.czinValeurGrappe - 3 * self.modele.calculerDistance(self.etoileMere, etoile)
-
+        
     def calculForceAttaque(self):
         self.forceAttaque = self.modele.temps * self.nbVaisseauParAttaque * self.forceAttaqueBasique
 
