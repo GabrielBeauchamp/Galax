@@ -6,13 +6,6 @@ class VueGraphique():
 		self.fenetre = Tk()
 		self.controleur = Controleur
 		self.AfficherMenuUI()
-		self.NouvellePartieInitialiser = False
-		############################# Initialiser les images du jeu ######################################
-		self.imgPlanetHumain = PhotoImage(file="imageSource/planetHumain.gif")
-		self.imgPlanetGubru = PhotoImage(file="imageSource/planetGubru.gif")
-		self.imgPlanetCzin = PhotoImage(file="imageSource/planetCzin.gif")
-		self.imgPlanetNoName = PhotoImage(file="imageSource/noName.gif")
-		##################################################################################################
 	
 	def mainloop(self):
 		self.fenetre.mainloop()
@@ -39,6 +32,7 @@ class VueGraphique():
 		self.fenetreMenu.pack_forget()
 		self.AfficherFenetreJeuUI()
 		print("*** Nouvelle partie ***")
+		self.controleur.boucleDeJeu()
 	#################################################################################################
 
 
@@ -65,7 +59,6 @@ class VueGraphique():
 
 		self.centerWindow(width, height, self.fenetre)
 	#################################################################################################
-
 
 
 
@@ -98,7 +91,6 @@ class VueGraphique():
 		self.fenetreJeu.pack()
 
 		self.centerWindow(width, height, self.fenetre)
-		self.NouvellePartieInitialiser = True
 	##################################################################################################
 
 

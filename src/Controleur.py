@@ -3,17 +3,15 @@ import VueGraphique
 
 class Controleur():
     def __init__(self):
-        self.modele = modele.Modele(self, 30, 20, 40)
-        self.vue = VueGraphique.VueGraphique(self)
-        self.modele.commencerPartie()
-        self.race = modele.Race()
-        self.boucleDeJeu()
-        self.vue.mainloop()
-
-    
+      self.race = modele.Race()
+      self.modele = modele.Modele(self, 30, 20, 40)
+      self.vue = VueGraphique.VueGraphique(self)
+      self.vue.mainloop()
         
+   
     def boucleDeJeu(self):
-      #if self.vue.NouvellePartieInitialiser:
+      print("fking works")
+      self.modele.commencerPartie()
       self.vue.AfficherPartie()
        # while not verifierPartieFinie():
           #  tourHumain()
