@@ -125,6 +125,8 @@ class Gubru():
 
 class Czin():
     def __init__(self, modele):
+        self.modele = modele
+
         self.etoilePossedee = [] # Liste d'etoile
         self.nbVaisseau = 100   # Le nombre total
         self.nbManifacture = 10 # Le nombre total
@@ -139,20 +141,17 @@ class Czin():
 
         self.base = self.etoileMere
         
-        self.mode = CzinMode.rassemblerForces
-        self.modele = modele
+        self.mode = "rassembler forces"
 
-    def joueSonTour(self):
+
+    def joueSonTour(self):      # Aka main
         self.initialiseValeurGrappe()
         self.calculForceAttaque()
-        if self.mode == CzinMode.rassemblerForces:
+        if self.mode == "rassembler forces":
             if self.base.nbShip == 3 * self.forceAttaque:
-                self.mode = CzinMode.etablirBase 
+                self.mode = "etablir base"
                 self.choisitBase()
                 
-            
-
-    # Je sais vraiment pas si ca fonctionne
     def initialiseValeurGrappe(self):
         for i in self.modele.etoiles:
             for j in self.modele.etoiles:
@@ -163,17 +162,23 @@ class Czin():
                     i.valeurGrappe = 0
 
     def choisitBase(self):
+        temp = 0
+        etoileTemp
         for etoile in self.modele.etoiles:
             if etoile.czinValeurGrappe == 0:
                 etoile.czinValeurBase = 0
             else:
                 etoile.czinValeurBase = etoile.czinValeurGrappe - 3 * self.modele.calculerDistance(self.etoileMere, etoile)
-        
+                if etoile.czinValeurBase > temp:
+                    temp = etoile.czinValeurBase
+                    etoileTemp = etoile
+        self.base = etoileTemp  # Ish?
+
     def calculForceAttaque(self):
         self.forceAttaque = self.modele.temps * self.nbVaisseauParAttaque * self.forceAttaqueBasique
 
     def rassemblerForces(self):
-        if self.mode == CzinMode.rassemblerForces:
+        if self.mode == "rassembler forces":
             for etoile in self.modele.etoiles:
                 if self.modele.calculerDistance(etoile, self.base) <= self.distanceRassemblement:
                     for f in etoile.flottes:
@@ -182,7 +187,7 @@ class Czin():
                         self.envoitFlotte(f, self.base)
                 else:
                     self.base = self.etoileMere
-
+                    
     def envoitFlotte(self, flotte, arrivee):
         flotte.arrive = arrivee
         flotte.momentDepart = self.modele.temps
@@ -191,10 +196,13 @@ class Czin():
         etoile.flottes.append(Flotte(nbShip, Race.czin, etoile))
         etoile.nbShip -= nbShip
 
-        
-class CzinMode():
-    rassemblerForces = 0
-    etablirBase = 1
-    conquerirGrappe = 2
+    def checkBase(self):
+        if self.base.poprio != Race.czin:
+            self.base = self.etoileMere
+
+# class CzinMode():
+#     rassemblerForces = 0
+#     etablirBase = 1
+#     conquerirGrappe = 2
     
 
