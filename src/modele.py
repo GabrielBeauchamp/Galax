@@ -208,28 +208,30 @@ class Modele():
     def ajouterTemps (self):
         self.temps=self.Temps+0.1
         
-    def calculTempsVoyage (self, xDepart, yDepart, xArrivee, yArrivee):
+    def calculTempsVoyage (self, etoileDepart,etoileArrivee):
         tempsVoyage=0
 
-        if xDepart == xArrivee:
-            if  abs(yArrivee - yDepart) <= 2:
-                tempsVoyage = (abs(yArrivee - yDepart) / 2)
+        if etoileDepart.x == etoileArrivee.x:
+            if  abs(etoileArrivee.y - etoileDepart.y) <= 2:
+                tempsVoyage = (abs(etoileArrivee.y - etoileDepart.y) / 2)
                                
-            elif abs(yArrivee - yDepart) > 2:
-                tempsVoyage = 1+ ( (abs(yArrivee - yDepart) -2) / 3)
+            elif abs(etoileArrivee.y - etoileDepart.y) > 2:
+                tempsVoyage = 1+ ( (abs(etoileArrivee.y - etoileDepart.y) -2) / 3)
                             
         if yDepart == yArrivee:
-            if (abs(xArrivee - xDepart) <= 2):
-                tempsVoyage = (abs(xArrivee - xDepart) / 2)
+            if (abs(etoileArrivee.x - etoileDepart.x) <= 2):
+                tempsVoyage = (abs(etoileArrivee.x - etoileDepart.x) / 2)
 
             else:
-                tempsVoyage = 1+ ( (abs(xArrivee - xDepart) -2) / 3)
+                tempsVoyage = 1+ ( (abs(etoileArrivee.x - etoileDepart.x) -2) / 3)
 
-        if ((yDepart != yArrivee) and (xDepart != xArrivee)):
-            if (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) <= 2:
-                  tempsVoyage = (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) /2
-            elif (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))))) > 2: 
-                  tempsVoyage = 1+ (math.trunc ( ( math.pow (abs(xArrivee - xDepart, 2)) + math.pow(abs(yArrivee - yDepart, 2))) -2) / 3)
+        if ((etoileDepart.y != etoileArrivee.y) and (etoileDepart.x != etoileArrivee.x)):
+            if (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))))) <= 2:
+                  tempsVoyage = (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))))) /2
+            elif (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))))) > 2: 
+                  tempsVoyage = 1+ (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))) -2) / 3)
+
+        return tempsVoyage
 
     def calculerDistance (self, etoileDepart,etoileArrivee):
         if etoileDepart.x == etoileArrivee.x:
