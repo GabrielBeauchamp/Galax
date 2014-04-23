@@ -140,18 +140,24 @@ class Czin():
         self.forceAttaqueBasique = 20
 
         self.base = self.etoileMere
-        
+        self.ancienneBase = None
         self.mode = "rassembler forces"
-
+        self.initialiseValeurGrappe() # Sait pas ou la mettre. Dans le doute.
 
     def joueSonTour(self):      # Aka main
-        self.initialiseValeurGrappe()
         self.calculForceAttaque()
         if self.mode == "rassembler forces":
             if self.base.nbShip == 3 * self.forceAttaque:
                 self.mode = "etablir base"
+        if self.mode == "etablir base":
                 self.choisitBase()
-                
+                self.lanceArmada()
+        if self.mode == "conquerir grappe":
+        
+    def lanceArmada(self, base):
+        f = Flotte(base.nbShip, Race.czin, base) # Mauvais feeling avec ca.
+        self.envoitFlotte(f, self.base)
+        
     def initialiseValeurGrappe(self):
         for i in self.modele.etoiles:
             for j in self.modele.etoiles:
@@ -163,7 +169,7 @@ class Czin():
 
     def choisitBase(self):
         temp = 0
-        etoileTemp
+        etoileTemp = None
         for etoile in self.modele.etoiles:
             if etoile.czinValeurGrappe == 0:
                 etoile.czinValeurBase = 0
@@ -172,6 +178,7 @@ class Czin():
                 if etoile.czinValeurBase > temp:
                     temp = etoile.czinValeurBase
                     etoileTemp = etoile
+        self.ancienneBase = self.base
         self.base = etoileTemp  # Ish?
 
     def calculForceAttaque(self):
@@ -199,6 +206,7 @@ class Czin():
     def checkBase(self):
         if self.base.poprio != Race.czin:
             self.base = self.etoileMere
+    
 
 # class CzinMode():
 #     rassemblerForces = 0
