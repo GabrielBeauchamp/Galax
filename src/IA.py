@@ -152,11 +152,20 @@ class Czin():
             if self.base.nbShip == 3 * self.forceAttaque:
                 self.mode = "etablir base"
         if self.mode == "etablir base":
+            # Si elle est pas lancee, on la lance.
             if not self.armadaLancee:
                 self.choisitBase()
                 self.lanceArmada()
                 self.tempAvantAtteinteBase = self.modele.calculTempsVoyage(self.ancienneBase, self.base)
-            if self.aramadaArrivee():
+                self.mode = "conquerir grappe"
+            else:               # Sinon on baisse le temps avant l'arrivee.
+                self.tempAvantAtteinteBase -= 1
+
+            if self.tempsAvantAtteinteBase == 0:
+                if self.base.proprio != Race.czin:
+                    self.ancienneBase = self.base
+                    self.base = self.etoileMere
+                    self.mode = "rassembler forces"
                 
         if self.mode == "conquerir grappe":
         
@@ -164,9 +173,6 @@ class Czin():
         f = Flotte(base.nbShip, Race.czin, base) # Mauvais feeling avec ca.
         self.envoitFlotte(f, self.base)
         self.armadaLancee = True
-
-    def aramadaArrivee(self):
-        pass
 
     def initialiseValeurGrappe(self):
         for i in self.modele.etoiles:
