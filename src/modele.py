@@ -231,7 +231,7 @@ class Modele():
             elif (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))))) > 2: 
                   tempsVoyage = 1+ (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))) -2) / 3)
 
-    return tempsVoyage
+        return tempsVoyage
 
     def calculerDistance (self, etoileDepart,etoileArrivee):
         if etoileDepart.x == etoileArrivee.x:
