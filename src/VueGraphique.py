@@ -1,11 +1,18 @@
 from tkinter import *
-from modele import * 
+from Controleur import *
 
 class VueGraphique():
-	def __init__(self):
+	def __init__(self, Controleur):
 		self.fenetre = Tk()
-		#self.controleur = Controleur
+		self.controleur = Controleur
 		self.AfficherMenuUI()
+		self.NouvellePartieInitialiser = False
+		############################# Initialiser les images du jeu ######################################
+		self.imgPlanetHumain = PhotoImage(file="imageSource/planetHumain.gif")
+		self.imgPlanetGubru = PhotoImage(file="imageSource/planetGubru.gif")
+		self.imgPlanetCzin = PhotoImage(file="imageSource/planetCzin.gif")
+		self.imgPlanetNoName = PhotoImage(file="imageSource/noName.gif")
+		##################################################################################################
 	
 	def mainloop(self):
 		self.fenetre.mainloop()
@@ -91,6 +98,7 @@ class VueGraphique():
 		self.fenetreJeu.pack()
 
 		self.centerWindow(width, height, self.fenetre)
+		self.NouvellePartieInitialiser = True
 	##################################################################################################
 
 
@@ -99,6 +107,7 @@ class VueGraphique():
 		self.imgPlanetHumain = PhotoImage(file="imageSource/planetHumain.gif")
 		self.imgPlanetGubru = PhotoImage(file="imageSource/planetGubru.gif")
 		self.imgPlanetCzin = PhotoImage(file="imageSource/planetCzin.gif")
+		self.imgPlanetNoName = PhotoImage(file="imageSource/noName.gif")
 	##################################################################################################
 
 
@@ -236,7 +245,22 @@ class VueGraphique():
 
 
 	################ Affichage des images sur le canevas du jeu et les info du jeu ########################
-	#def AfficherPartie(self):
+	def AfficherPartie(self):
+		for y in range(self.controleur.modele.aireDeJeu.yMax):
+			for x in range(self.controleur.modele.aireDeJeu.xMax):
+				for Etoile in self.controleur.modele.etoiles:
+					if Etoile.x==x and Etoile.y==y:
+						if Etoile.proprio == self.controleur.race.humain:
+							self.canevas.create_image(x*32,y*32, image= self.imgPlanetHumain, anchor= NW)
+						elif Etoile.proprio == self.controleur.race.gubru:
+							self.canevas.create_image(x*32,y*32, image= self.imgPlanetGubru, anchor= NW)
+						elif Etoile.proprio == self.controleur.race.czin:
+							self.canevas.create_image(x*32,y*32, image= self.imgPlanetCzin, anchor= NW)
+						else:
+							self.canevas.create_image(x*32,y*32, image= self.imgPlanetNoName, anchor= NW)
+
+
+
 
 
 
@@ -244,9 +268,9 @@ class VueGraphique():
 	######################################################################################################
 
 #Main
-if __name__ == '__main__':
-	v = VueGraphique()
-	v.mainloop() 
+#if __name__ == '__main__':
+	#v = VueGraphique()
+	#v.fenetre.mainloop() 
 
 
 

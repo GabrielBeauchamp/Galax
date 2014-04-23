@@ -4,16 +4,17 @@ import VueGraphique
 class Controleur():
     def __init__(self):
         self.modele = modele.Modele(self, 30, 20, 40)
-        self.modele.commencerPartie()
         self.vue = VueGraphique.VueGraphique(self)
+        self.modele.commencerPartie()
+        self.race = modele.Race()
         self.boucleDeJeu()
         self.vue.mainloop()
 
     
         
     def boucleDeJeu(self):
-        pass
-        #afficherVue()
+      #if self.vue.NouvellePartieInitialiser:
+      self.vue.AfficherPartie()
        # while not verifierPartieFinie():
           #  tourHumain()
             #tourGubru() -appelle Gubru.joueSonTour

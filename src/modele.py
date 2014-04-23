@@ -24,14 +24,14 @@ class Etoile():
         self.nbManu = random.randint(0, 6)
 
 class Flotte():
-    def __init__(self, nbShip, prorio, depart):
+    def __init__(self, nbShip, prorio):
         self.parent = parent
         self.noIdent = noIdent
         self.nbShip = nbShip
         self.prorio = prorio
-        self.depart = depart
+        self.depart = None
         self.arrive = None
-        self.momentDepart = Modele.temps # A revoir, bref it works
+        self.momentDepart = None
         self.momentArrivee = None
 
 
@@ -208,7 +208,7 @@ class Modele():
     def ajouterTemps (self):
         self.temps=self.Temps+0.1
         
-    def calculTempsVoyage (self, xDepart, yDepart, xArrivee, yArrivee): # Faire avec les etoiles?
+    def calculTempsVoyage (self, xDepart, yDepart, xArrivee, yArrivee):
         tempsVoyage=0
 
         if xDepart == xArrivee:
