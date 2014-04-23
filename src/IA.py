@@ -141,6 +141,8 @@ class Czin():
 
         self.armadaLancee = False
         self.tempAvantAtteinteBase
+        self.tempMaxAtteinteGrappe
+
         self.base = self.etoileMere
         self.ancienneBase = None
         self.mode = "rassembler forces"
@@ -162,13 +164,18 @@ class Czin():
 
             if self.tempsAvantAtteinteBase == 0:                
                 self.mode = "conquerir grappe"
-
+ 
         if self.mode == "conquerir grappe":
             if self.base.proprio != Race.czin: # Si l'etoile n'est pas conquise
                 self.ancienneBase = self.base  # On se replit
                 self.base = self.etoileMere
                 self.mode = "rassembler forces"
-            
+
+                # La on envoit les flottes sur les etoiles de la grappe
+                # On note le temps max
+                # Une fois que la derniere flotte est arrivee
+                # On revient a la base. ET/OU l'etoile mere
+                
     def lanceArmada(self, base):
         f = Flotte(base.nbShip, Race.czin, base) # Mauvais feeling avec ca.
         self.envoitFlotte(f, self.base)
