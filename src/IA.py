@@ -150,8 +150,8 @@ class Czin():
             if self.base.nbShip == 3 * self.forceAttaque:
                 self.mode = "etablir base"
         if self.mode == "etablir base":
-                self.choisitBase()
-                self.lanceArmada()
+            self.choisitBase()
+            self.lanceArmada()
         if self.mode == "conquerir grappe":
         
     def lanceArmada(self, base):
