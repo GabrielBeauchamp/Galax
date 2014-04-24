@@ -54,6 +54,8 @@ class Modele():
         self.etoilesEnConflit = []
         self.vaisseauxDeplacement = []
         self.flotte = []
+        self.departTemp=None
+        self.arriveeTemp=None
         
     def verifierTourFini(self, temps):
         if self.temps % 10 == 0:
@@ -80,7 +82,7 @@ class Modele():
                      x.nbShip += 1
                     
                 self.etoiles.append(x)
-                self.planeteMaxAtteint += 1
+                self.planeteMaxAtteint = self.planeteMaxAtteint+1
     
       
         

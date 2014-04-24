@@ -8,7 +8,7 @@ class Controleur():
       self.vue = VueGraphique.VueGraphique(self)
       self.vue.mainloop()
         
-   
+    
     def boucleDeJeu(self):
       print("fking works")
       self.modele.commencerPartie()
@@ -31,6 +31,13 @@ class Controleur():
         #GAME OVER merci d'avoir joué à Galax
         #note pour drago : mettre des tags les icone etoile pour que ca retourne le tag : "etoile+nbEtoile"
         #note tester tout le transtypage de l'operation tag
+    def savePlaneteDepart(self,etoile):
+        self.modele.departTemp=etoile
+
+    def savePlaneteArrivee(self,etoile):
+        self.modele.arriveeTemp=etoile
+    
+
                                
 if __name__ == "__main__":
     
