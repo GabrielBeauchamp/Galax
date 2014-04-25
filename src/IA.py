@@ -146,10 +146,11 @@ class Czin():
         self.base = self.etoileMere
         self.ancienneBase = None
         self.mode = "rassembler forces"
-        self.initialiseValeurGrappe() # Sait pas ou la mettre. Dans le doute.
+  
 
-    def joueSonTour(self):      # Aka main
+    def joueSonTour(self):     
         self.calculForceAttaque()
+        self.initialiseValeurGrappe() # Sait pas ou la mettre. Dans le doute.
         if self.mode == "rassembler forces":
             if self.base.nbShip == 3 * self.forceAttaque:
                 self.mode = "etablir base"
@@ -170,17 +171,25 @@ class Czin():
                 self.ancienneBase = self.base  # On se replit
                 self.base = self.etoileMere
                 self.mode = "rassembler forces"
-
+                
                 # La on envoit les flottes sur les etoiles de la grappe
                 # On note le temps max
+		self.disperseArmada()
                 # Une fois que la derniere flotte est arrivee
                 # On revient a la base. ET/OU l'etoile mere
                 
     def lanceArmada(self, base):
-        f = Flotte(base.nbShip, Race.czin, base) # Mauvais feeling avec ca.
+        f = Flotte(base.nbShip, Race.czin, base) # Mauvais feeling avec ca. "base" surtout
         self.envoitFlotte(f, self.base)
         self.armadaLancee = True
 
+    def disperseArmada(self):
+        # On split par notre de flotte possible ou pa etoile dans la grappe
+        # Ou bien, on fait selon le plus petit des deux.
+        for i in range(self.base.nbShip / self.forceAttaque): # Au nombre de flotte faisable
+            flotteTemp = Flotte(self.forceAttaque, Race.czin, self.base)
+    	
+    	
     def initialiseValeurGrappe(self):
         for i in self.modele.etoiles:
             for j in self.modele.etoiles:
