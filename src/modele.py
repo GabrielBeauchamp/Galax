@@ -1,6 +1,8 @@
 import random
 import math
 
+from IA import *
+
 class Race():
     humain = 0
     gubru = 1
@@ -24,16 +26,21 @@ class Etoile():
         self.nbManu = random.randint(0, 6)
 
 class Flotte():
-    def __init__(self, nbShip, prorio):
-        self.parent = parent
-        self.noIdent = noIdent
+    def __init__(self, nbShip, prorio, depart):
+        #self.parent = parent
+        self.noIdent = 0
         self.nbShip = nbShip
         self.prorio = prorio
-        self.depart = None
+        self.depart = depart
         self.arrive = None
         self.momentDepart = None
         self.momentArrivee = None
 
+    def estArrivee(self):
+        if self.momentArrivee - self.modele.temps == 0:
+            return True
+        else:
+            return False
 
 class AireJeu():
     def __init__(self, xMax, yMax):
@@ -56,6 +63,8 @@ class Modele():
         self.flotte = []
         self.departTemp=None
         self.arriveeTemp=None
+
+        self.humain = Humain(self)
         
     def verifierTourFini(self, temps):
         if self.temps % 10 == 0:
@@ -115,7 +124,7 @@ class Modele():
         
         
         print (self.planeteMaxAtteint)
-        self.verifierTableau()
+        #self.verifierTableau()
 
     def etoileNonPresente (self, x, y): 
         for Etoile in self.etoiles:
@@ -210,42 +219,53 @@ class Modele():
     def ajouterTemps (self):
         self.temps=self.Temps+0.1
         
-    def calculTempsVoyage (self, etoileDepart,etoileArrivee):
-        tempsVoyage=0
+##    def calculTempsVoyage (self, etoileDepart,etoileArrivee):
+##        tempsVoyage=0
+##
+##        if etoileDepart.x == etoileArrivee.x:
+##            if  abs(etoileArrivee.y - etoileDepart.y) <= 2:
+##                tempsVoyage = (abs(etoileArrivee.y - etoileDepart.y) / 2)
+##                               
+##            elif abs(etoileArrivee.y - etoileDepart.y) > 2:
+##                tempsVoyage = 1+ ( (abs(etoileArrivee.y - etoileDepart.y) -2) / 3)
+##                            
+##        if etoileArrivee.y == etoileDepart.y:
+##            if (abs(etoileArrivee.x - etoileDepart.x) <= 2):
+##                tempsVoyage = (abs(etoileArrivee.x - etoileDepart.x) / 2)
+##
+##            else:
+##                tempsVoyage = 1+ ( (abs(etoileArrivee.x - etoileDepart.x) -2) / 3)
+##
+##        if etoileDepart.y != etoileArrivee.y and etoileDepart.x != etoileArrivee.x:
+##            if (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))))) <= 2:
+##                  tempsVoyage = (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))))) /2
+##            elif (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))))) > 2: 
+##                  tempsVoyage = 1+ (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))) -2) / 3)
+##
+##        return tempsVoyage
 
-        if etoileDepart.x == etoileArrivee.x:
-            if  abs(etoileArrivee.y - etoileDepart.y) <= 2:
-                tempsVoyage = (abs(etoileArrivee.y - etoileDepart.y) / 2)
-                               
-            elif abs(etoileArrivee.y - etoileDepart.y) > 2:
-                tempsVoyage = 1+ ( (abs(etoileArrivee.y - etoileDepart.y) -2) / 3)
-                            
-        if yDepart == yArrivee:
-            if (abs(etoileArrivee.x - etoileDepart.x) <= 2):
-                tempsVoyage = (abs(etoileArrivee.x - etoileDepart.x) / 2)
-
-            else:
-                tempsVoyage = 1+ ( (abs(etoileArrivee.x - etoileDepart.x) -2) / 3)
-
-        if ((etoileDepart.y != etoileArrivee.y) and (etoileDepart.x != etoileArrivee.x)):
-            if (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))))) <= 2:
-                  tempsVoyage = (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))))) /2
-            elif (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))))) > 2: 
-                  tempsVoyage = 1+ (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))) -2) / 3)
-
-        return tempsVoyage
+    def calculTempsVoyage(self, depart, arrivee):
+        temps = 0
+        distance = self.calculerDistance(depart, arrivee)
+        print("Distance", distance)
+        if distance <= 2:
+            temps = distance/2
+        else:
+            temps = 1 + ((distance-2)/3)
+        return temps 
 
     def calculerDistance (self, etoileDepart,etoileArrivee):
-        if etoileDepart.x == etoileArrivee.x:
-            distance = abs(etoileDepart.y - etoileArrivee.y)
-
-        elif etoileDepart.y == etoileArrivee.y:
-            distance = abs(etoileDepart.x - etoileArrivee.x)
-
-        elif (etoileDepart.y != etoileArrivee.y) and (etoileDepart.x != etoileArrivee.x):
-            distance = math.trunc ( ( math.pow (abs(etoileArrivee - etoileDepart, 2)) + math.pow(abs(etoileArrivee - etoileDepart, 2))))
-
-        return distance
+        return ((etoileDepart.x - etoileArrivee.x)**2 + (etoileDepart.y - etoileArrivee.y)**2)**0.5
+##        if etoileDepart.x == etoileArrivee.x:
+##            distance = abs(etoileDepart.y - etoileArrivee.y)
+##
+##        elif etoileDepart.y == etoileArrivee.y:
+##            distance = abs(etoileDepart.x - etoileArrivee.x)
+##
+##        elif (etoileDepart.y != etoileArrivee.y) and (etoileDepart.x != etoileArrivee.x):
+##            distance = math.trunc ( ( math.pow (abs(etoileArrivee - etoileDepart, 2)) + math.pow(abs(etoileArrivee - etoileDepart, 2))))
+##
+##        return distance
 
 
     def joueurProprio (self, tag):

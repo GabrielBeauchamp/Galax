@@ -7,7 +7,8 @@ class VueGraphique():
                 self.controleur = Controleur
                 self.AfficherMenuUI()
                 self.cliqueDepart=True
-        
+                self.nbShipToSave = 0
+         
         def mainloop(self):
                 self.fenetre.mainloop()
 
@@ -70,22 +71,29 @@ class VueGraphique():
         ################### Définition de fonctionnement des boutons pour le jeu ########################
         def BoutonLaunch(self):
                 print("The button Launch was pressed!")
+                self.controleur.launchFlotte()
 
         def BoutonGo(self):
                 print("The button End Turn was pressed!")
 
         def BoutonMoin(self):
-                print("-1 Ship")
+                self.nbShipToSave = self.nbShipToSave-1
+                self.controleur.nbShipToSave = self.nbShipToSave
+                print(self.nbShipToSave)
+                
 
         def BoutonPlus(self):
-                print("+1 Ship")
+                self.nbShipToSave = self.nbShipToSave+1
+                self.controleur.nbShipToSave = self.nbShipToSave
+                print(self.nbShipToSave)
+                
         #################################################################################################
 
 
         ################################ Initialiser la Fenêtre du Jeu ################################## 
         def InitialiserJeuUI(self):
                 self.fenetre.title("Galax - Jeu")
-                width= 1200     # LOOK: Magic numbers \o/
+                width= 1200     
                 height= 720
 
                 self.fenetreJeu = Frame(self.fenetre)
@@ -237,6 +245,9 @@ class VueGraphique():
                                 self.cliqueDepart = not self.cliqueDepart
                                 print (etoile.nbShip)
                                 print (self.cliqueDepart)
+                                
+                        if etoile.x==X and etoile.y==Y and etoile.proprio is not self.controleur.race.humain:
+                                print (etoile.nivInt)
                                                 
                 # LOOK: Devrait retourner un tuple.
 

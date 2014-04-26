@@ -1,10 +1,14 @@
+#from modele import *
+import modele
 class Humain():
     def __init__(self, parent):
-        self.parent = parent     # Ca va etre Modele
+        self.modele = parent     # Ca va etre Modele
         self.etoilePossedee = [] # Liste d'etoile
         self.nbVaisseau = 100   # Le nombre total
         self.nbManifacture = 10 # Le nombre total
         self.flottes = []
+
+        #self.flotte = modele.Flotte()
 
     def joueSonTour(self):
         pass
@@ -16,12 +20,13 @@ class Humain():
         self.nbVaisseau = total
 
     def formeFlotte(self, nbShip, race, etoile):
-        etoile.flottes.append(Flotte(nbShip, race, etoile))
+        self.flottes.append(modele.Flotte(nbShip, race, etoile))
         etoile.nbShip -= nbShip
         
     def envoitFlotte(self, flotte, arrivee):
         flotte.arrive = arrivee
-        flotte.momentDepart = modele.temps
+        flotte.momentDepart = self.modele.temps
+        flotte.momentArrivee = self.modele.calculTempsVoyage(flotte.depart, arrivee)
         
 class Gubru():
     def __init__(self, modele):
@@ -100,7 +105,8 @@ class Gubru():
     def envoitFlotte(self, flotte, arrivee):
         flotte.arrive = arrivee
         flotte.momentDepart = self.modele.temps
-
+        flotte.momentArrivee = self.modele.calculTempsVoyage(flotte.depart, arrivee)
+        
     def attaqueEtoiles(self):
         etoileSort = sortDistanceEtoile()
         i = 0
@@ -174,7 +180,7 @@ class Czin():
                 
                 # La on envoit les flottes sur les etoiles de la grappe
                 # On note le temps max
-		self.disperseArmada()
+        self.disperseArmada()
                 # Une fois que la derniere flotte est arrivee
                 # On revient a la base. ET/OU l'etoile mere
                 
@@ -188,8 +194,8 @@ class Czin():
         # Ou bien, on fait selon le plus petit des deux.
         for i in range(self.base.nbShip / self.forceAttaque): # Au nombre de flotte faisable
             flotteTemp = Flotte(self.forceAttaque, Race.czin, self.base)
-    	
-    	
+        
+        
     def initialiseValeurGrappe(self):
         for i in self.modele.etoiles:
             for j in self.modele.etoiles:
@@ -230,7 +236,8 @@ class Czin():
     def envoitFlotte(self, flotte, arrivee):
         flotte.arrive = arrivee
         flotte.momentDepart = self.modele.temps
-
+        flotte.momentArrivee = self.modele.calculTempsVoyage(flotte.depart, arrivee)
+        
     def formeFlotte(self, etoile, nbShip):
         etoile.flottes.append(Flotte(nbShip, Race.czin, etoile))
         etoile.nbShip -= nbShip
