@@ -128,34 +128,52 @@ class VueGraphique():
 
         ######################################### Panel Info #############################################
         def InitialiserPanelInfo(self):
+                # Probleme dans l'affichage des nombres. Peut-etre un probleme dans le modele.
+                texteLabelHumain = "Humain : " + str(len(self.controleur.modele.humain.etoilePossedee) )
+                texteLabelGubru = "Gubru : " + str(len(self.controleur.modele.gubru.etoilePossedee) )
+                texteLabelCzin = "Czin : " + str(len(self.controleur.modele.czin.etoilePossedee) )
+
+                texteLabelAnnee = "Annee : " + str(int(self.controleur.modele.temps / 10))
+                texteLabelDistance = "Distance : "# + str(int(self.controleur.modele.calculerDistance()))
+
+                if self.controleur.modele.departTemp != None:
+                        texteLabelEtoileDep = "Depart : " + str(self.controleur.modele.departTemp).split("at ")[1].split(">")[0]
+                else:
+                        texteLabelEtoileDep = "Depart : None"
+
+                if self.controleur.modele.arriveeTemp != None:
+                        texteLabelEtoileArr = "Arrivee : " + str(self.controleur.modele.arriveeTemp).split("at ")[1].split(">")[0]
+                else:
+                        texteLabelEtoileArr = "Arrivee : None"       
+                
                 panelInfo = Frame(self.fenetreJeu, width= 230, height= 650, background= "darkgray")
                 panelInfo.grid(row= 0, column= 1, sticky= N, rowspan= 2)
 
                 panelNbPlanetPlayer = Frame(panelInfo, width= 220, height= 200, bg= "gray", relief= "sunken", bd= 3)
                 panelNbPlanetPlayer.grid(row= 0, padx = 5, pady= 15)
 
-                labelNbPlanetPlayer = Label(panelNbPlanetPlayer, text= "--- Nomber of planets ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
+                labelNbPlanetPlayer = Label(panelNbPlanetPlayer, text= "--- Nombres de systèmes ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
                 labelNbPlanetPlayer.grid(row= 0, column= 0, columnspan= 2)
 
                 labelImageHumain = Label(panelNbPlanetPlayer, image= self.imgPlanetHumain, bg= "gray")
                 labelImageHumain.image = self.imgPlanetHumain
                 labelImageHumain.grid(row= 1, column= 0, sticky= E, pady= 5)
 
-                labelHumain = Label(panelNbPlanetPlayer, text= "Humain : ", bg="gray")
+                labelHumain = Label(panelNbPlanetPlayer, text= texteLabelHumain, bg="gray")
                 labelHumain.grid(row= 1, column= 1, sticky= W, padx=5, pady= 8)
 
                 labelImageGubru = Label(panelNbPlanetPlayer, image= self.imgPlanetGubru, bg= "gray")
                 labelImageGubru.image= self.imgPlanetGubru
                 labelImageGubru.grid(row= 2, column= 0, sticky= E, pady= 5)
 
-                labelGubru = Label(panelNbPlanetPlayer, text= "Gubru    : ", bg="gray")
+                labelGubru = Label(panelNbPlanetPlayer, text= texteLabelGubru, bg="gray")
                 labelGubru.grid(row= 2, column= 1, sticky= W, padx=5, pady= 8)
 
                 labelImageCzin = Label(panelNbPlanetPlayer, image= self.imgPlanetCzin, bg="gray")
                 labelImageCzin.image = self.imgPlanetCzin
                 labelImageCzin.grid(row= 3, column= 0, sticky= E, pady= 5)
 
-                labelCzin = Label(panelNbPlanetPlayer, text= "Czin       : ", bg="gray")
+                labelCzin = Label(panelNbPlanetPlayer, text= texteLabelCzin, bg="gray")
                 labelCzin.grid(row= 3, column= 1, sticky= W, padx=5, pady= 8)
 
                 panelAttaque = Frame(panelInfo, width= 220, height= 170, bg= "gray", relief= "sunken", bd= 3)
@@ -164,13 +182,13 @@ class VueGraphique():
                 labelAttaque = Label(panelAttaque, text= "--- Attack ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
                 labelAttaque.grid(row= 0, column= 0, columnspan= 2)
 
-                labelFrom = Label(panelAttaque, text= "From : ", bg= "gray")
+                labelFrom = Label(panelAttaque, text= texteLabelEtoileDep, bg= "gray")
                 labelFrom.grid(row= 1, column= 0, sticky= W, padx= 10, pady= 10)
 
-                labelTo = Label(panelAttaque, text= "To : ", bg= "gray")
+                labelTo = Label(panelAttaque, text= texteLabelEtoileArr, bg= "gray")
                 labelTo.grid(row= 1, column= 1, sticky= W, padx= 10, pady= 10)
 
-                labelDistance = Label(panelAttaque, text= "Distance : ", bg= "gray")
+                labelDistance = Label(panelAttaque, text= texteLabelDistance, bg= "gray")
                 labelDistance.grid(row= 2, column= 0, sticky= W, padx= 10, pady= 10)
 
                 labelTemps = Label(panelAttaque, text= "Temps : ", bg= "gray")
@@ -188,7 +206,7 @@ class VueGraphique():
                 labelTransit = Label(panelFlotte, text= "Transit : ", bg= "gray")
                 labelTransit.grid(row= 2, sticky= W, padx= 10, pady= 8)
 
-                labelAnnee = Label(panelInfo, text= "Year X", width= 23, height= 2, font=(14),bg= "black", fg= "white", relief= "raised", bd= 3)
+                labelAnnee = Label(panelInfo, text= texteLabelAnnee, width= 23, height= 2, font=(14),bg= "black", fg= "white", relief= "raised", bd= 3)
                 labelAnnee.grid(row= 3, padx = 5, pady= 15)
 
                 panelStatus = Frame(panelInfo, width= 220, height= 134, bg= "black", relief= "sunken", bd= 3)
@@ -241,6 +259,7 @@ class VueGraphique():
                         if etoile.x==X and etoile.y==Y:# and etoile.proprio == self.controleur.race.humain:
                                 if self.cliqueDepart==True and etoile.proprio == self.controleur.race.humain:
                                         self.controleur.savePlaneteDepart(etoile)
+                                        self.InitialiserPanelInfo()
                                         print(etoile)
                                 if self.cliqueDepart==False:
                                         self.controleur.savePlaneteArrivee(etoile)

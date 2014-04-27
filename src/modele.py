@@ -65,12 +65,29 @@ class Modele():
         self.arriveeTemp=None
 
         self.humain = Humain(self)
+        self.gubru = Gubru(self)
+        self.czin = Czin(self)
         
     def verifierTourFini(self):
         if self.temps % 10 == 0:
             return True
         else:
             return False
+
+    def updateEtoile(self):
+        for e in self.etoiles:
+            #print("Etoile",e, "prorio", e.proprio)
+            if e.proprio == Race.humain and not e in self.humain.etoilePossedee:
+             #   print("Fking humain", e)
+                self.humain.etoilePossedee.append(e)
+            elif e.proprio == Race.gubru and not e in self.gubru.etoilePossedee:
+              #  print("Fking gubru", e)
+                self.gubru.etoilePossedee.append(e)
+            elif e.proprio == Race.czin and not e in self.czin.etoilePossedee:
+               # print("Fking czin", e)
+                self.czin.etoilePossedee.append(e)
+        #print("Liste d'etoiles\n")
+        #print(self.humain.etoilePossedee)
         
     def commencerPartie(self):
         self.planeteMaxAtteint = 0 
@@ -93,10 +110,6 @@ class Modele():
                 self.etoiles.append(x)
                 self.planeteMaxAtteint = self.planeteMaxAtteint+1
     
-      
-        
-
-        
         x = random.randint(0, 39)
         
         self.etoiles[x].proprio = Race.humain
@@ -110,7 +123,7 @@ class Modele():
             if self.etoiles[x].proprio == None:
                 self.etoiles[x].proprio = Race.gubru
                 self.etoiles[x].nbManu = 10
-                self.etoiles[x].nbShip = 100
+                self.etoiles[x].nbShip = 1000
                 i=+1
         i=0
         
@@ -124,6 +137,7 @@ class Modele():
         
         
         print (self.planeteMaxAtteint)
+        #self.updateEtoile()
         #self.verifierTableau()
 
     def etoileNonPresente (self, x, y): 
@@ -207,12 +221,12 @@ class Modele():
 
 
     def combat(self, flotteAttaquant, etoile):
-        print("COMBAT!!!")
-        print("Etoile prop",etoile.proprio, "avec", etoile.nbShip)
-        print("Flotte, prop", flotteAttaquant.proprio, "contre", flotteAttaquant.nbShip)
+        #print("COMBAT!!!")
+        #print("Etoile prop",etoile.proprio, "avec", etoile.nbShip)
+        #print("Flotte, prop", flotteAttaquant.proprio, "contre", flotteAttaquant.nbShip)
         
         while etoile.nbShip > 0 and flotteAttaquant.nbShip > 0:
-            print("att", flotteAttaquant.nbShip, "def", etoile.nbShip)
+        #    print("att", flotteAttaquant.nbShip, "def", etoile.nbShip)
             if etoile.nbShip / flotteAttaquant.nbShip <= 0.05:
                 if random.randint(0,100) >= 70:
                     flotteAttaquant.nbShip -= 1
@@ -235,7 +249,7 @@ class Modele():
             etoile.nbShip = flotteAttaquant.nbShip
 
         
-        print("Vainceur", etoile.proprio)
+        #print("Vainceur", etoile.proprio)
         self.deleteFlotte(flotteAttaquant)
         
     def ajouterTemps (self):
@@ -244,7 +258,7 @@ class Modele():
     def calculTempsVoyage(self, depart, arrivee):
         temps = 0
         distance = self.calculerDistance(depart, arrivee)
-        print("Distance", distance)
+        #print("Distance", distance)
         if distance <= 2:
             temps = distance/2
         else:

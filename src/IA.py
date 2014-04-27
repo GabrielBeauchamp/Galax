@@ -34,23 +34,23 @@ class Gubru():
         self.nbVaisseau = 100   # Le nombre total
         self.nbManifacture = 10 # Le nombre total
         self.flottes = []
-
+        self.etoileMere = None
         self.modele = modele
         # Parce que la premiere est de facto l'etoile mere.
-        self.etoileMere = self.etoilePossedee[0]
+        #self.etoileMere = self.etoilePossedee[0]
 
         self.nbVaisseauParAttaque = 5
         self.forceAttaqueBasique = 10
-        self.puissanceAttaque   # ou force_attaque
+        self.puissanceAttaque = 0   # ou force_attaque
 
         
     def joueSonTour(self):
         # En premier, on change (ou pas) l'etoile mere.
         # Le test est dans la fonction.
         self.changerEtoileMere()
-
+        
         # On calcules les forces d'attaque.
-        self.puissaceAttaque = calculPuissanceAttaque()
+        self.puissaceAttaque = self.calculPuissanceAttaque()
         # On prepare les flottes
         self.formationFlottes()
         # On l'attaque
@@ -59,7 +59,7 @@ class Gubru():
 
 
     def formeFlotte(self, etoile, nbShip):
-        etoile.flottes.append(Flotte(nbShip, Race.gubru, etoile))
+        self.flottes.append( modele.Flotte(nbShip, modele.Race.gubru, etoile))
         etoile.nbShip -= nbShip
     
     def doitChangerEtoileMere(self):
@@ -94,24 +94,34 @@ class Gubru():
     def sortDistanceEtoile(self):
         distance = []
         for etoile in self.modele.etoiles: 
-            if etoile.prorio == Race.gubru:
+            if etoile.proprio == modele.Race.gubru:
                 pass            # Si c'est une des miennes, je fais rien.
             else:
                 a = self.modele.calculerDistance(self.etoileMere, etoile)
                 distance.append((a, etoile)) # Un tuple
-        distance.sort()                
+        distance = sorted(distance, key=lambda distance: distance[0])
+        #distance.sort(
         return distance             
 
     def envoitFlotte(self, flotte, arrivee):
         flotte.arrive = arrivee
         flotte.momentDepart = self.modele.temps
-        flotte.momentArrivee = self.modele.calculTempsVoyage(flotte.depart, arrivee)
         
+        flotte.depart = self.etoileMere # Because the code isn`t ugly enough already
+        flotte.momentArrivee = self.modele.calculTempsVoyage(flotte.depart, arrivee)
+                #for i in self.modele.gubru.flottes:
+        # Ceci est sale, mais on a plus trop le temps
+        # Antoine aime ca quand c'est sale.
+        self.modele.deplacement(flotte, arrivee)
+
     def attaqueEtoiles(self):
-        etoileSort = sortDistanceEtoile()
+        etoileSort = self.sortDistanceEtoile()
+        print(etoileSort)
         i = 0
+        j = 0
         for flotte in self.flottes:
-            if i <= len(etoileSort):
+            if i < len(etoileSort) and j < len(self.flottes):
+                #print("Ceci a ete fait", etoileSort[i])
                 self.envoitFlotte(flotte, etoileSort[i][1]) # C'est un tuple.
                 i += 1
 
@@ -137,24 +147,26 @@ class Czin():
         self.nbVaisseau = 100   # Le nombre total
         self.nbManifacture = 10 # Le nombre total
         self.flottes = []
-        self.etoileMere = self.etoilePossedee[0]
+        #self.etoileMere = self.etoilePossedee[0]
 
         self.distanceGrappe = 4
         self.distanceRassemblement = 6
-        self.forceAttaque
+        self.forceAttaque = 0
         self.nbVaisseauParAttaque = 4
         self.forceAttaqueBasique = 20
 
         self.armadaLancee = False
-        self.tempAvantAtteinteBase
-        self.tempMaxAtteinteGrappe
+        self.tempAvantAtteinteBase = 0
+        self.tempMaxAtteinteGrappe = 0
 
-        self.base = self.etoileMere
+        #self.base = self.etoileMere
         self.ancienneBase = None
         self.mode = "rassembler forces"
   
 
-    def joueSonTour(self):     
+    def joueSonTour(self):
+        self.changerEtoileMere()
+        self.base = self.etoileMere
         self.calculForceAttaque()
         self.initialiseValeurGrappe() # Sait pas ou la mettre. Dans le doute.
         if self.mode == "rassembler forces":
@@ -183,7 +195,19 @@ class Czin():
         self.disperseArmada()
                 # Une fois que la derniere flotte est arrivee
                 # On revient a la base. ET/OU l'etoile mere
-                
+
+    def doitChangerEtoileMere(self):
+        for etoile in self.etoilePossedee:
+            # Si etoileMere est dans la liste d'etoile.
+            # On veut pas changer.
+            if etoile == self.etoileMere: 
+                return False
+        return True # Faut changer d'etoile mere.
+
+    def changerEtoileMere(self):
+        if self.doitChangerEtoileMere():
+            self.etoileMere = self.etoilePossedee[0]
+            
     def lanceArmada(self, base):
         f = Flotte(base.nbShip, Race.czin, base) # Mauvais feeling avec ca. "base" surtout
         self.envoitFlotte(f, self.base)
