@@ -66,7 +66,7 @@ class Modele():
 
         self.humain = Humain(self)
         
-    def verifierTourFini(self, temps):
+    def verifierTourFini(self):
         if self.temps % 10 == 0:
             return True
         else:
@@ -239,7 +239,7 @@ class Modele():
         self.deleteFlotte(flotteAttaquant)
         
     def ajouterTemps (self):
-        self.temps=self.Temps+0.1
+        self.temps=self.temps+1
         
     def calculTempsVoyage(self, depart, arrivee):
         temps = 0
@@ -285,13 +285,6 @@ class Modele():
         else:
            return False
         
-    def donnerDestFlotte (tagFlotte,tagEtoile):
-        tagFlotte[6:]
-        tagEtoile[6:]
-        self.flotte[tagFlotte].arrivee = self.etoiles[tagEtoile]
-
-            
-
 class Controleur():
     def __init__(self):
         

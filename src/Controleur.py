@@ -16,17 +16,19 @@ class Controleur():
         self.vue.AfficherPartie()
 
     def testerTemps(self):
-        tempsTempo = self.modele.temps
-        while tempsTempo != self.modele.temps + 10:
-            print(tempsTempo)
+        for i in self.modele.humain.flottes:
+            print("Flotte humaine", i)
+        test = True
+        while test:
+            print (self.modele.temps)
             for e in self.modele.etoiles:
                 for f in self.modele.humain.flottes:
-                    if f.arrive == e and f.momentArrivee - (tempsTempo / 10) <= 0: # La flotte est arrivee
+                    if f.arrive == e and f.momentArrivee - self.modele.temps <= 0: # La flotte est arrivee
                         print("Flotte", f, "est arrivee a", e)
                         f.momentArrivee = None
-                        self.modele.deplacement(f, self.modele.arriveeTemp)
-            tempsTempo += 1
-        self.modele.temps += 1
+                        self.modele.deplacement(f, f.arrive)
+            self.modele.ajouterTemps()
+            test = not self.modele.verifierTourFini()
         self.vue.AfficherPartie()
        # while not verifierPartieFinie():
           #  tourHumain()
@@ -65,6 +67,7 @@ class Controleur():
 
         self.modele.humain.formeFlotte(self.nbShipToSave, self.race.humain, self.modele.departTemp)
         self.modele.humain.envoitFlotte(self.modele.humain.flottes[-1], self.modele.arriveeTemp)
+        print("Flotte a la -1", self.modele.humain.flottes[-1])
 
         for f in self.modele.humain.flottes:
             print("Temps voyage:", f.momentArrivee)
