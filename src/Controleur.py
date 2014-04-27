@@ -11,9 +11,23 @@ class Controleur():
         
     
     def boucleDeJeu(self):
-      print("works")
-      self.modele.commencerPartie()
-      self.vue.AfficherPartie()
+        print("fking works")
+        self.modele.commencerPartie()
+        self.vue.AfficherPartie()
+
+    def testerTemps(self):
+        tempsTempo = self.modele.temps
+        while tempsTempo != self.modele.temps + 10:
+            print(tempsTempo)
+            for e in self.modele.etoiles:
+                for f in self.modele.humain.flottes:
+                    if f.arrive == e and f.momentArrivee - (tempsTempo / 10) <= 0: # La flotte est arrivee
+                        print("Flotte", f, "est arrivee a", e)
+                        f.momentArrivee = None
+                        self.modele.deplacement(f, self.modele.arriveeTemp)
+            tempsTempo += 1
+        self.modele.temps += 1
+        self.vue.AfficherPartie()
        # while not verifierPartieFinie():
           #  tourHumain()
             #tourGubru() -appelle Gubru.joueSonTour

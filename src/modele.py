@@ -26,11 +26,11 @@ class Etoile():
         self.nbManu = random.randint(0, 6)
 
 class Flotte():
-    def __init__(self, nbShip, prorio, depart):
+    def __init__(self, nbShip, proprio, depart):
         #self.parent = parent
         self.noIdent = 0
         self.nbShip = nbShip
-        self.prorio = prorio
+        self.proprio = proprio
         self.depart = depart
         self.arrive = None
         self.momentDepart = None
@@ -185,65 +185,62 @@ class Modele():
             i.nbShip+=i.nbManu
             for j in range (i.nbManu):
                 i.vaisseaux.append(Vaisseaux ())
-                
-    
+
+    def deleteFlotte(self, flotte):
+        flotte.depart = None
+        flotte.arrive = None
+        flotte.propio = None
+        flotte.nbShip = 0
+        flotte.momentArrivee = -4
+
+    def deplacement(self, flotte, etoileArrivee):
+        if flotte.proprio != etoileArrivee.proprio:
+            self.combat(flotte, etoileArrivee)
+        else:
+            etoileArrivee.nbShip += flotte.nbShip
+            self.deleteFlotte(flotte)        
     
     def verifierCombat(self):
         for Etoile in self.etoiles:
             if len(racePresentes) > 1:
                 self.etoileEnConflit.append(noEtoile)
 
-    def combat(self,defenseurs,attaquants,Etoile, propAttaquant,propDefenseur):    
-        while attaquants > 0 or defenseurs > 0:
-            if defenseurs/attaquants <= 0.05:
-                if  randint(0,100) >=70:
-                    attaquants-1
-                if randint(0,100) >=70:
-                    defenseurs-1
+
+    def combat(self, flotteAttaquant, etoile):
+        print("COMBAT!!!")
+        print("Etoile prop",etoile.proprio, "avec", etoile.nbShip)
+        print("Flotte, prop", flotteAttaquant.proprio, "contre", flotteAttaquant.nbShip)
+        
+        while etoile.nbShip > 0 and flotteAttaquant.nbShip > 0:
+            print("att", flotteAttaquant.nbShip, "def", etoile.nbShip)
+            if etoile.nbShip / flotteAttaquant.nbShip <= 0.05:
+                if random.randint(0,100) >= 70:
+                    flotteAttaquant.nbShip -= 1
+                if random.randint(0,100) >= 70:
+                    etoile.nbShip -= 1
             else:
-                if  randint(0,100) >=70:
-                    defenseurs-1
-                if randint(0,100) >=70:
-                    attaquants-1
+                if random.randint(0,100) >= 70:
+                    etoile.nbShip -= 1
+                if random.randint(0,100) >= 70:
+                    flotteAttaquant.nbShip -= 1
 
-        if defenseurs >0:
-            Etoile.nbShip = defenseurs    
-        elif attaquants > 0:
-            Etoile.nbShip = attaquants
+        if etoile.nbShip == 0:
+            etoile.proprio = flotteAttaquant.proprio
+        elif flotteAttaquant.nbShip == 0:
+            pass # Sont deja proprio de leur etoile
+        
+        if etoile.nbShip > 0:
+            pass # Sont deja sur leur etoile   
+        elif flotteAttaquant.nbShip > 0:
+            etoile.nbShip = flotteAttaquant.nbShip
 
-        if defenseurs == 0:
-            Etoile.proprio = propAttaquant
-        elif attaquants == 0:
-            Etoile.proprio == propDefenseur
+        
+        print("Vainceur", etoile.proprio)
+        self.deleteFlotte(flotteAttaquant)
         
     def ajouterTemps (self):
         self.temps=self.Temps+0.1
         
-##    def calculTempsVoyage (self, etoileDepart,etoileArrivee):
-##        tempsVoyage=0
-##
-##        if etoileDepart.x == etoileArrivee.x:
-##            if  abs(etoileArrivee.y - etoileDepart.y) <= 2:
-##                tempsVoyage = (abs(etoileArrivee.y - etoileDepart.y) / 2)
-##                               
-##            elif abs(etoileArrivee.y - etoileDepart.y) > 2:
-##                tempsVoyage = 1+ ( (abs(etoileArrivee.y - etoileDepart.y) -2) / 3)
-##                            
-##        if etoileArrivee.y == etoileDepart.y:
-##            if (abs(etoileArrivee.x - etoileDepart.x) <= 2):
-##                tempsVoyage = (abs(etoileArrivee.x - etoileDepart.x) / 2)
-##
-##            else:
-##                tempsVoyage = 1+ ( (abs(etoileArrivee.x - etoileDepart.x) -2) / 3)
-##
-##        if etoileDepart.y != etoileArrivee.y and etoileDepart.x != etoileArrivee.x:
-##            if (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))))) <= 2:
-##                  tempsVoyage = (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))))) /2
-##            elif (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))))) > 2: 
-##                  tempsVoyage = 1+ (math.trunc ( ( math.pow (abs(etoileArrivee.x - etoileDepart.x, 2)) + math.pow(abs(etoileArrivee.y - etoileDepart.y, 2))) -2) / 3)
-##
-##        return tempsVoyage
-
     def calculTempsVoyage(self, depart, arrivee):
         temps = 0
         distance = self.calculerDistance(depart, arrivee)
@@ -256,17 +253,6 @@ class Modele():
 
     def calculerDistance (self, etoileDepart,etoileArrivee):
         return ((etoileDepart.x - etoileArrivee.x)**2 + (etoileDepart.y - etoileArrivee.y)**2)**0.5
-##        if etoileDepart.x == etoileArrivee.x:
-##            distance = abs(etoileDepart.y - etoileArrivee.y)
-##
-##        elif etoileDepart.y == etoileArrivee.y:
-##            distance = abs(etoileDepart.x - etoileArrivee.x)
-##
-##        elif (etoileDepart.y != etoileArrivee.y) and (etoileDepart.x != etoileArrivee.x):
-##            distance = math.trunc ( ( math.pow (abs(etoileArrivee - etoileDepart, 2)) + math.pow(abs(etoileArrivee - etoileDepart, 2))))
-##
-##        return distance
-
 
     def joueurProprio (self, tag):
         tag[6:]

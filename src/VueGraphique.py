@@ -75,6 +75,7 @@ class VueGraphique():
 
         def BoutonGo(self):
                 print("The button End Turn was pressed!")
+                self.controleur.testerTemps()
 
         def BoutonMoin(self):
                 self.nbShipToSave = self.nbShipToSave-1
@@ -237,11 +238,13 @@ class VueGraphique():
                 Y= int(event.y/32)
                 print("Position du Clic ->", X,',', Y)
                 for etoile in self.controleur.modele.etoiles:
-                        if etoile.x==X and etoile.y==Y and etoile.proprio==self.controleur.race.humain:
-                                if self.cliqueDepart==True:
+                        if etoile.x==X and etoile.y==Y:# and etoile.proprio == self.controleur.race.humain:
+                                if self.cliqueDepart==True and etoile.proprio == self.controleur.race.humain:
                                         self.controleur.savePlaneteDepart(etoile)
+                                        print(etoile)
                                 if self.cliqueDepart==False:
                                         self.controleur.savePlaneteArrivee(etoile)
+                                        print(etoile)
                                 self.cliqueDepart = not self.cliqueDepart
                                 print (etoile.nbShip)
                                 print (self.cliqueDepart)
