@@ -15,12 +15,14 @@ class Controleur():
         self.modele.commencerPartie()
         self.vue.AfficherPartie()
 
-    def testerTemps(self):
+    def boucleTour(self):
+        if self.modele.verifierPartieFinie():
+            self.finPartie()
+            
         self.modele.updateEtoile()
         self.vue.InitialiserPanelInfo()
         test = True
         while test:
-            print (self.modele.temps)
             for e in self.modele.etoiles:
                 for f in self.modele.humain.flottes:
                     if f.arrive == e and f.momentArrivee - self.modele.temps <= 0: # La flotte est arrivee
@@ -30,27 +32,14 @@ class Controleur():
             self.modele.ajouterTemps()
             test = not self.modele.verifierTourFini()
         self.modele.gubru.joueSonTour()
-
+        #self.modele.czin.joueSonTour()
         
         self.vue.AfficherPartie()
-       # while not verifierPartieFinie():
-          #  tourHumain()
-            #tourGubru() -appelle Gubru.joueSonTour
-            #tourCzin()  -appelle Czin.joueSonTour            
-           # while not verifierTourFini():
-              # ajouterTemps()
-                #verifierFlotteArrivee()
-              #  verifierCombat()
-              #  combat()
-            #updateVue()
-         #   incrementerVaisseau()
-       # partieFinie()
-       # recommencerNouvellePartie()
 
-
-        #GAME OVER merci d'avoir joué à Galax
-        #note pour drago : mettre des tags les icone etoile pour que ca retourne le tag : "etoile+nbEtoile"
-        #note tester tout le transtypage de l'operation tag
+    def finPartie(self):
+        print("La partie est terminée. Merci d'avoir joué.")
+        exit(0)
+        
     def savePlaneteDepart(self,etoile):
         self.modele.departTemp=etoile
 

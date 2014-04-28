@@ -75,7 +75,7 @@ class VueGraphique():
 
         def BoutonGo(self):
                 print("The button End Turn was pressed!")
-                self.controleur.testerTemps()
+                self.controleur.boucleTour()
 
         def BoutonMoin(self):
                 self.nbShipToSave = self.nbShipToSave-1

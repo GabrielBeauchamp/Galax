@@ -123,7 +123,7 @@ class Modele():
             if self.etoiles[x].proprio == None:
                 self.etoiles[x].proprio = Race.gubru
                 self.etoiles[x].nbManu = 10
-                self.etoiles[x].nbShip = 1000
+                self.etoiles[x].nbShip = 100
                 i=+1
         i=0
         
@@ -178,7 +178,7 @@ class Modele():
         proprio1=True
         proprio2=True
     
-        for i in self.etoiles[i]:
+        for i in self.etoiles:
             if i.proprio != Race.humain :
                 proprio0 = False
                 
@@ -263,7 +263,7 @@ class Modele():
             temps = distance/2
         else:
             temps = 1 + ((distance-2)/3)
-        return temps 
+        return temps * 10
 
     def calculerDistance (self, etoileDepart,etoileArrivee):
         return ((etoileDepart.x - etoileArrivee.x)**2 + (etoileDepart.y - etoileArrivee.y)**2)**0.5
