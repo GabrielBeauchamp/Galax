@@ -1,3 +1,7 @@
+#TP - Galax - Par Gabriel Beauchamp, Antoine Delbast et Dragomir Dobrev
+#remis à Jean-Marc Deschamps le 30 avril 2014 dans le cadre du cours 420-B41-VM
+
+
 import random
 import math
 
@@ -78,13 +82,13 @@ class Modele():
         for e in self.etoiles:
             #print("Etoile",e, "prorio", e.proprio)
             if e.proprio == Race.humain and not e in self.humain.etoilePossedee:
-             #   print("Fking humain", e)
+             #   print("humain", e)
                 self.humain.etoilePossedee.append(e)
             elif e.proprio == Race.gubru and not e in self.gubru.etoilePossedee:
-              #  print("Fking gubru", e)
+              #  print(" gubru", e)
                 self.gubru.etoilePossedee.append(e)
             elif e.proprio == Race.czin and not e in self.czin.etoilePossedee:
-               # print("Fking czin", e)
+               # print(" czin", e)
                 self.czin.etoilePossedee.append(e)
         #print("Liste d'etoiles\n")
         #print(self.humain.etoilePossedee)
@@ -249,7 +253,7 @@ class Modele():
             etoile.nbShip = flotteAttaquant.nbShip
 
         
-        #print("Vainceur", etoile.proprio)
+        #print("Vainqueur", etoile.proprio)
         self.deleteFlotte(flotteAttaquant)
         
     def ajouterTemps (self):

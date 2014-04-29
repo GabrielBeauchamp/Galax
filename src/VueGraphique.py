@@ -1,3 +1,6 @@
+#TP - Galax - Par Gabriel Beauchamp, Antoine Delbast et Dragomir Dobrev
+#remis à Jean-Marc Deschamps le 30 avril 2014 dans le cadre du cours 420-B41-VM
+
 from tkinter import *
 from Controleur import *
 
@@ -41,14 +44,14 @@ class VueGraphique():
         ######################################### Afficher Menu #########################################
         def AfficherMenuUI(self):
                 self.fenetre.title("Galax - Menu")
-                width= 960      # LOOK: Magic numbers?
+                width= 960      
                 height= 640
 
                 self.fenetreMenu = Frame(self.fenetre)
                 self.fenetreMenu.pack()
 
                 self.canevas = Canvas(self.fenetreMenu, width=width, height=height, bd=-2)
-                self.canevas.pack() # LOOK: Got a pack there.
+                self.canevas.pack() 
 
                 self.imgMenu = PhotoImage(file= "imageSource/menuScene.gif")
                 self.canevas.create_image(0,0, image= self.imgMenu, anchor= NW)
@@ -179,7 +182,7 @@ class VueGraphique():
                 panelAttaque = Frame(panelInfo, width= 220, height= 170, bg= "gray", relief= "sunken", bd= 3)
                 panelAttaque.grid(row= 1, padx = 5, pady= 15)
 
-                labelAttaque = Label(panelAttaque, text= "--- Attack ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
+                labelAttaque = Label(panelAttaque, text= "--- Attaque ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
                 labelAttaque.grid(row= 0, column= 0, columnspan= 2)
 
                 labelFrom = Label(panelAttaque, text= texteLabelEtoileDep, bg= "gray")
@@ -197,7 +200,7 @@ class VueGraphique():
                 panelFlotte = Frame(panelInfo, width= 220, height= 200, bg= "gray", relief= "sunken", bd= 3)
                 panelFlotte.grid(row= 2, padx = 5, pady= 15)
 
-                labelFlotte = Label(panelFlotte, text= "--- Flect ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
+                labelFlotte = Label(panelFlotte, text= "--- Flotte ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
                 labelFlotte.grid(row= 0)
 
                 labelPort = Label(panelFlotte, text= "Port : ", bg= "gray")
@@ -271,7 +274,7 @@ class VueGraphique():
                         if etoile.x==X and etoile.y==Y and etoile.proprio is not self.controleur.race.humain:
                                 print (etoile.nivInt)
                                                 
-                # LOOK: Devrait retourner un tuple.
+                
 
                 #if self.controleur.getVerifierEtoilePresent(X, Y):
                         #self.cotroleur.get

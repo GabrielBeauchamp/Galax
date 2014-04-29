@@ -1,3 +1,6 @@
+#TP - Galax - Par Gabriel Beauchamp, Antoine Delbast et Dragomir Dobrev
+#remis à Jean-Marc Deschamps le 30 avril 2014 dans le cadre du cours 420-B41-VM
+
 import modele
 import VueGraphique
 
@@ -11,7 +14,7 @@ class Controleur():
         
     
     def boucleDeJeu(self):
-        #print("fking works")
+        #print(" works")
         self.modele.commencerPartie()
         self.vue.AfficherPartie()
 

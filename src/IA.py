@@ -1,4 +1,6 @@
-#from modele import *
+#TP - Galax - Par Gabriel Beauchamp, Antoine Delbast et Dragomir Dobrev
+#remis à Jean-Marc Deschamps le 30 avril 2014 dans le cadre du cours 420-B41-VM
+
 import modele
 class Humain():
     def __init__(self, parent):
