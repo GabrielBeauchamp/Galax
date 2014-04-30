@@ -1,7 +1,5 @@
 #TP - Galax - Par Gabriel Beauchamp, Antoine Delbast et Dragomir Dobrev
 #remis à Jean-Marc Deschamps le 30 avril 2014 dans le cadre du cours 420-B41-VM
-
-
 import random
 import math
 
@@ -31,7 +29,6 @@ class Etoile():
 
 class Flotte():
     def __init__(self, nbShip, proprio, depart):
-        #self.parent = parent
         self.noIdent = 0
         self.nbShip = nbShip
         self.proprio = proprio
@@ -80,18 +77,12 @@ class Modele():
 
     def updateEtoile(self):
         for e in self.etoiles:
-            #print("Etoile",e, "prorio", e.proprio)
             if e.proprio == Race.humain and not e in self.humain.etoilePossedee:
-             #   print("humain", e)
                 self.humain.etoilePossedee.append(e)
             elif e.proprio == Race.gubru and not e in self.gubru.etoilePossedee:
-              #  print(" gubru", e)
                 self.gubru.etoilePossedee.append(e)
             elif e.proprio == Race.czin and not e in self.czin.etoilePossedee:
-               # print(" czin", e)
                 self.czin.etoilePossedee.append(e)
-        #print("Liste d'etoiles\n")
-        #print(self.humain.etoilePossedee)
         
     def commencerPartie(self):
         self.planeteMaxAtteint = 0 
@@ -137,44 +128,12 @@ class Modele():
                 self.etoiles[x].nbManu = 10
                 self.etoiles[x].nbShip = 100
                 i=+1
-        
-        
-        # print (self.planeteMaxAtteint)
-        #self.updateEtoile()
-        #self.verifierTableau()
 
     def etoileNonPresente (self, x, y): 
         for Etoile in self.etoiles:
             if Etoile.x == x and Etoile.y == y :
                 return False
-        return True
-
-    def verifierTableau (self):  #fonction de test
-        self.numero=0
-        for i in range(self.aireDeJeu.yMax):
-            for j in range(self.aireDeJeu.xMax):
-                self.isEtoile =False
-                for k in self.etoiles:
-                    if k.y==i and k.x==j:
-                        self.isEtoile = True
-                        if k.proprio == Race.humain:
-                            print ("H",end='')
-                        elif k.proprio == Race.gubru:
-                            print ("G",end='')
-                        elif k.proprio == Race.czin:
-                            print ("C",end='')
-                        else:
-                            print ("X",end='')
-                        k.numeroEtoile=self.numero+1
-                        
-                if not self.isEtoile:
-                    print("-",end='')
-            print ('\n')
-        print (self.etoiles[0].x)
-        print (self.etoiles[0].y)
-        print(self.etoiles[0].nbManu)
-        
-         
+        return True        
     
     def verifierPartieFinie(self):
         proprio0=True
@@ -224,12 +183,7 @@ class Modele():
 
 
     def combat(self, flotteAttaquant, etoile):
-        #print("COMBAT!!!")
-        #print("Etoile prop",etoile.proprio, "avec", etoile.nbShip)
-        #print("Flotte, prop", flotteAttaquant.proprio, "contre", flotteAttaquant.nbShip)
-        
         while etoile.nbShip > 0 and flotteAttaquant.nbShip > 0:
-        #    print("att", flotteAttaquant.nbShip, "def", etoile.nbShip)
             if etoile.nbShip / flotteAttaquant.nbShip <= 0.05:
                 if random.randint(0,100) >= 70:
                     flotteAttaquant.nbShip -= 1
@@ -251,8 +205,6 @@ class Modele():
         elif flotteAttaquant.nbShip > 0:
             etoile.nbShip = flotteAttaquant.nbShip
 
-        
-        #print("Vainqueur", etoile.proprio)
         self.deleteFlotte(flotteAttaquant)
         
     def ajouterTemps (self):
@@ -261,7 +213,7 @@ class Modele():
     def calculTempsVoyage(self, depart, arrivee):
         temps = 0
         distance = self.calculerDistance(depart, arrivee)
-        #print("Distance", distance)
+
         if distance <= 2:
             temps = distance/2
         else:
@@ -270,35 +222,3 @@ class Modele():
 
     def calculerDistance (self, etoileDepart,etoileArrivee):
         return ((etoileDepart.x - etoileArrivee.x)**2 + (etoileDepart.y - etoileArrivee.y)**2)**0.5
-
-    def joueurProprio (self, tag):
-        tag[6:]
-
-        if self.etoiles[tab].proprio == Race.humain:
-            return True
-        else:
-            return False
-
-    def niveauIntel (self, tag):
-        tag[6:]
-        return self.etoiles[tag].nivInt
-
-    def IncrementerIntel (self, tag):
-        tag[6:]
-        if self.etoiles[tag].nivInt == 0:
-            self.etoiles[tag].nivInt =1
-        if self.etoiles[tag].nivInt == 1:
-            self.etoiles[tag].nivInt =2
-        if self.etoiles[tag].nivInt == 2:
-            self.etoiles[tag].nivInt =3
-
-    def creerFlotte (self,tag,nbShip,proprio):                ##les AI utilisent cette fonction pour creer leur flottes
-        tag[6:]
-        if self.etoiles[tag].nbShip >= nbShip:
-            self.flotte.append(Flotte(nbShip,proprio))
-            self.etoiles[tag].nbShip = self.etoiles[tag].nbShip - nbShip
-                
-            return len(self.flotte)-1
-        else:
-           return False
-
