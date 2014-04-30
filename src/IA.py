@@ -109,11 +109,10 @@ class Gubru():
         flotte.arrive = arrivee
         flotte.momentDepart = self.modele.temps
         
-        flotte.depart = self.etoileMere # Because the code isn`t ugly enough already
+        flotte.depart = self.etoileMere 
         flotte.momentArrivee = self.modele.calculTempsVoyage(flotte.depart, arrivee)
                 #for i in self.modele.gubru.flottes:
-        # Ceci est sale, mais on a plus trop le temps
-        # Antoine aime ca quand c'est sale.
+        
         self.modele.deplacement(flotte, arrivee)
 
     def attaqueEtoiles(self):
