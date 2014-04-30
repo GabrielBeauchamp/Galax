@@ -194,7 +194,7 @@ class VueGraphique():
                 labelDistance = Label(panelAttaque, text= texteLabelDistance, bg= "gray")
                 labelDistance.grid(row= 2, column= 0, sticky= W, padx= 10, pady= 10)
 
-                labelTemps = Label(panelAttaque, text= "Temps : ", bg= "gray")
+                labelTemps = Label(panelAttaque, text= "Temps : " + self.modele.humain.flottes[-1, bg= "gray")
                 labelTemps.grid(row= 2, column= 1, sticky= W, padx= 10, pady= 10)
 
                 panelFlotte = Frame(panelInfo, width= 220, height= 200, bg= "gray", relief= "sunken", bd= 3)
