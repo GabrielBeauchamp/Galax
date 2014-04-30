@@ -118,7 +118,6 @@ class Gubru():
 
     def attaqueEtoiles(self):
         etoileSort = self.sortDistanceEtoile()
-        print(etoileSort)
         i = 0
         j = 0
         for flotte in self.flottes:

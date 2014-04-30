@@ -11,7 +11,10 @@ class VueGraphique():
                 self.AfficherMenuUI()
                 self.cliqueDepart=True
                 self.nbShipToSave = 0
-         
+                self.texteLabelDistance = "Distance: "
+                self.texteLabelTemps = "Temps: "
+                self.texteLabelFlotte = "Port: "
+
         def mainloop(self):
                 self.fenetre.mainloop()
 
@@ -28,9 +31,9 @@ class VueGraphique():
                 window.geometry('%dx%d+%d+%d' % (w, h, x, y)) 
 
 
-        #################################################################################################
+        ##################################################################################################
         #                                         Fenêtre Menu                                          #
-        #################################################################################################
+        ##################################################################################################
 
         ##################### Définition de fonctionnement des boutons pour le menu #####################
         def Bouton_Nouvelle_Partie(self):
@@ -67,9 +70,9 @@ class VueGraphique():
 
 
 
-        #################################################################################################
+        ##################################################################################################
         #                                         Fenêtre Jeu                                           #
-        #################################################################################################
+        ##################################################################################################
 
         ################### Définition de fonctionnement des boutons pour le jeu ########################
         def BoutonLaunch(self):
@@ -91,7 +94,7 @@ class VueGraphique():
                 self.controleur.nbShipToSave = self.nbShipToSave
                 print(self.nbShipToSave)
                 
-        #################################################################################################
+        ##################################################################################################
 
 
         ################################ Initialiser la Fenêtre du Jeu ################################## 
@@ -137,7 +140,7 @@ class VueGraphique():
                 texteLabelCzin = "Czin : " + str(len(self.controleur.modele.czin.etoilePossedee) )
 
                 texteLabelAnnee = "Annee : " + str(int(self.controleur.modele.temps / 10))
-                texteLabelDistance = "Distance : "# + str(int(self.controleur.modele.calculerDistance()))
+
 
                 if self.controleur.modele.departTemp != None:
                         texteLabelEtoileDep = "Depart : " + str(self.controleur.modele.departTemp).split("at ")[1].split(">")[0]
@@ -191,10 +194,11 @@ class VueGraphique():
                 labelTo = Label(panelAttaque, text= texteLabelEtoileArr, bg= "gray")
                 labelTo.grid(row= 1, column= 1, sticky= W, padx= 10, pady= 10)
 
-                labelDistance = Label(panelAttaque, text= texteLabelDistance, bg= "gray")
+                labelDistance = Label(panelAttaque, text= self.texteLabelDistance, bg= "gray")
                 labelDistance.grid(row= 2, column= 0, sticky= W, padx= 10, pady= 10)
 
-                labelTemps = Label(panelAttaque, text= "Temps : " + self.modele.humain.flottes[-1, bg= "gray")
+                labelTemps = Label(panelAttaque, text= self.texteLabelTemps, bg= "gray")
+
                 labelTemps.grid(row= 2, column= 1, sticky= W, padx= 10, pady= 10)
 
                 panelFlotte = Frame(panelInfo, width= 220, height= 200, bg= "gray", relief= "sunken", bd= 3)
@@ -203,7 +207,7 @@ class VueGraphique():
                 labelFlotte = Label(panelFlotte, text= "--- Flotte ---", width= 29, bg= "black", fg= "white", relief= "raised", bd= 3)
                 labelFlotte.grid(row= 0)
 
-                labelPort = Label(panelFlotte, text= "Port : ", bg= "gray")
+                labelPort = Label(panelFlotte, text= self.texteLabelFlotte, bg= "gray")
                 labelPort.grid(row= 1, sticky= W, padx= 10, pady= 8)
 
                 labelTransit = Label(panelFlotte, text= "Transit : ", bg= "gray")
