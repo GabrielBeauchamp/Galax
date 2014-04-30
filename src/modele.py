@@ -101,7 +101,6 @@ class Modele():
         self.posY = 0
         self.planeteMaxAtteint = 0
     
-        
         while self.planeteMaxAtteint < self.nbEtoiles:
             self.posX=random.randint(0, self.xMax-1)
             self.posY=random.randint(0, self.yMax-1)
@@ -140,7 +139,7 @@ class Modele():
                 i=+1
         
         
-        print (self.planeteMaxAtteint)
+        # print (self.planeteMaxAtteint)
         #self.updateEtoile()
         #self.verifierTableau()
 
